@@ -3,7 +3,7 @@ module.exports = {
         browser: true,
         es2021: true,
     },
-    extends: ['plugin:react/recommended', 'airbnb'],
+    extends: ['plugin:react/recommended', 'airbnb', 'plugin:@next/next/recommended'],
     parserOptions: {
         ecmaFeatures: {
             jsx: true,
@@ -41,7 +41,7 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
         'import/no-unresolved': 'off',
         'react/function-component-definition': [
-            'enabled',
+            0,
             {
                 namedComponents: 'arrow-function',
             },

@@ -10,10 +10,9 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Image from 'next/image';
-import { useTheme } from '@mui/material/styles';
 
 import makeStyles from './styles';
-import logo from '../../../assets/img/logo.png';
+import logo from '../../public/static/assets/img/logo.png';
 
 const pages = ['Home', 'About Us', 'Product', 'Blog', 'FAQ\'s'];
 

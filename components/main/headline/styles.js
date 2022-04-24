@@ -27,7 +27,7 @@ const styles = () => {
             textAlign: 'center',
             fontSize: '19px',
             fontStyle: 'italic',
-        }
+        },
     };
 };
 
