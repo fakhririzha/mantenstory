@@ -32,12 +32,14 @@ module.exports = {
                 aspects: ['invalidHref', 'preferButton'],
             },
         ],
+        'no-unused-vars': ['error'],
         'no-restricted-imports': [
             'error',
             {
                 paths: ['@material-ui/core', '@material-ui/icons', '@material-ui/lab'],
             },
         ],
+        'import/extensions': 'off',
         'import/no-extraneous-dependencies': 'off',
         'import/no-unresolved': 'off',
         'react/function-component-definition': [

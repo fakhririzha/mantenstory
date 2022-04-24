@@ -31,6 +31,9 @@ const theme = createTheme({
         white: {
             main: '#FFFFFF',
         },
+        primaryCard: {
+            main: '#EFEFEF',
+        },
     },
     breakpoints: {
         values: {
@@ -38,7 +41,7 @@ const theme = createTheme({
             sm: 600,
             md: 900,
             lg: 1200,
-            xl: 1536,
+            xl: 1600,
             mobile: 0,
             tablet: 640,
             laptop: 1024,
