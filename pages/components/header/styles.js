@@ -1,0 +1,15 @@
+import { useTheme } from '@mui/material/styles';
+
+const styles = () => {
+    return {
+        headerBox: {
+            height: '70vh',
+            width: '100%',
+            backgroundImage: "url('/static/assets/img/header.jpg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+        },
+    };
+};
+
+export default styles;
