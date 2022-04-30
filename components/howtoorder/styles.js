@@ -10,6 +10,7 @@ const styles = () => {
             maxWidth: '100% !important',
             paddingLeft: '0px !important',
             paddingRight: '0px !important',
+            paddingBottom: '2.5rem',
         },
         title: {
             paddingTop: '5rem',

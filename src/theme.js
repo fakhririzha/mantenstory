@@ -37,6 +37,9 @@ const theme = createTheme({
         grey: {
             main: '#A1A795',
         },
+        bigComma: {
+            main: '#6A6A6A',
+        },
     },
     breakpoints: {
         values: {
