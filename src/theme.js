@@ -34,6 +34,9 @@ const theme = createTheme({
         primaryCard: {
             main: '#EFEFEF',
         },
+        grey: {
+            main: '#A1A795',
+        },
     },
     breakpoints: {
         values: {
