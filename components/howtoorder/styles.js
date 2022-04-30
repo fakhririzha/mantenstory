@@ -71,6 +71,7 @@ const styles = () => {
         circleStepperChildrenText: {
             fontSize: '25px',
             textAlign: 'center',
+            color: theme.palette.primary.main,
         },
         circleStepperWrapper: {
             display: 'flex',
