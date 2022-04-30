@@ -5,6 +5,7 @@ import Header from '../components/header';
 import Main from '../components/main';
 import HowToOrder from '../components/howtoorder';
 import Testimonials from '../components/testimonials';
+import Footer from '../components/footer';
 
 const Index = () => (
     <>
@@ -13,6 +14,7 @@ const Index = () => (
         <Main />
         <HowToOrder />
         <Testimonials />
+        <Footer />
     </>
 );
 
