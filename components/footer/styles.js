@@ -39,7 +39,7 @@ const styles = () => {
             fontSize: '11px',
             fontStyle: 'italic',
             color: theme.palette.secondary.main,
-        }
+        },
     };
 };
 
