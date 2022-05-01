@@ -9,6 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import Link from 'next/link';
 import Image from 'next/image';
 
 import makeStyles from './styles';
@@ -76,11 +77,29 @@ const Navbar = () => {
                         <Image src={logo} alt="logo" />
                     </Box>
                     <Box sx={styles.menuNav}>
-                        {pages.map((page) => (
-                            <Button key={page} onClick={handleCloseNavMenu} sx={styles.menuNavBtn}>
-                                {page}
+                        <Link href="/" passHref>
+                            <Button onClick={handleCloseNavMenu} sx={styles.menuNavBtn}>
+                                Home
                             </Button>
-                        ))}
+                        </Link>
+                        <Link href="/about" passHref>
+                            <Button onClick={handleCloseNavMenu} sx={styles.menuNavBtn}>
+                                About Us
+                            </Button>
+                        </Link>
+                        <Link href="/product" passHref>
+                            <Button onClick={handleCloseNavMenu} sx={styles.menuNavBtn}>
+                                Product
+                            </Button>
+                        </Link>
+                        <Link href="/blog" passHref>
+                            <Button onClick={handleCloseNavMenu} sx={styles.menuNavBtn}>
+                                Blog
+                            </Button>
+                        </Link>
+                        <Button onClick={handleCloseNavMenu} sx={styles.menuNavBtn}>
+                            FAQ&apos;s
+                        </Button>
                     </Box>
                 </Toolbar>
             </Container>
