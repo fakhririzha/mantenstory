@@ -11,13 +11,13 @@ import { faInstagram, faFacebook, faTiktok } from '@fortawesome/free-brands-svg-
 import makeStyles from './styles';
 import logoAlt from '../../public/static/assets/img/logo_alt.png';
 
-const Footer = () => {
+const Footer = (style = '') => {
     const styles = makeStyles();
 
     const currentYear = new Date().getFullYear();
 
     return (
-        <Container maxWidth="false" sx={styles.footer}>
+        <Container maxWidth="false" sx={style !== null ? style.style : styles.footer}>
             <Box sx={styles.footerContent}>
                 <Box sx={styles.logoWrapper}>
                     <Image src={logoAlt} alt="logoAlt" />

@@ -56,7 +56,7 @@ const Header = () => {
                 </Typography>
             </Box>
             <Box>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.9380275968256!2d106.96860581540282!3d-6.2718800954604195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698d37d83cb85d%3A0x6d45b20fabf9ef1!2sManten%20story%20bekasi!5e0!3m2!1sen!2sid!4v1651360129308!5m2!1sen!2sid" allowFullScreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="map" style={styles.googleMap} />
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.9380275968256!2d106.96860581540282!3d-6.2718800954604195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698d37d83cb85d%3A0x6d45b20fabf9ef1!2sManten%20story%20bekasi!5e0!3m2!1sen!2sid!4v1651360129308!5m2!1sen!2sid" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="map" style={styles.googleMap} />
             </Box>
         </Container>
     );
