@@ -58,7 +58,7 @@ const Main = () => {
                     <Button variant="contained" sx={styles.actionButton} color="primaryCard">See Catalogue</Button>
                 </Box>
             </Box>
-        </Box >
+        </Box>
     );
 };
 

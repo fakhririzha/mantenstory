@@ -17,7 +17,8 @@ const Footer = (style = '') => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <Container maxWidth="false" sx={style !== null ? style.style : styles.footer}>
+        // eslint-disable-next-line no-mixed-operators
+        <Container maxWidth="false" sx={style && style.style || styles.footer}>
             <Box sx={styles.footerContent}>
                 <Box sx={styles.logoWrapper}>
                     <Image src={logoAlt} alt="logoAlt" />
