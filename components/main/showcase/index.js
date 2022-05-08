@@ -1,14 +1,29 @@
 /* eslint-disable max-len */
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import MuiButton from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
+
+import { alpha, styled } from '@mui/material/styles';
 
 import showcaseOne from '../../../assets/img/showcase-1.png';
 import showcaseTwo from '../../../assets/img/showcase-2.png';
 
 import makeStyles from './styles';
+
+const Button = styled((props) => (
+    <MuiButton
+        {...props}
+    />
+))(({ theme }) => ({
+    ':hover': {
+        backgroundColor: theme.palette.primaryCard.main,
+        borderBottom: `2px solid ${alpha(theme.palette.secondary.main, 0.8)}`,
+    },
+    borderBottom: '2px solid transparent',
+    transition: 'border-bottom .35s',
+}));
 
 const Main = () => {
     const styles = makeStyles();
@@ -26,7 +41,7 @@ const Main = () => {
                     <Typography sx={styles.showcaseOneDescContent}>
                         Browse the gallery and choose an invitation style that fits your theme. Each design is ready for your customisation and comes with optional matching RSVP cards and information cards.
                     </Typography>
-                    <Button variant="contained" sx={styles.actionButton} color="primaryCard">See Catalogue</Button>
+                    <Button sx={styles.actionButton} color="primaryCard" disableElevation>See Catalogue</Button>
                 </Box>
             </Box>
             <Box sx={styles.showcaseTwoWrapper}>
@@ -40,7 +55,7 @@ const Main = () => {
                     <Typography sx={styles.showcaseTwoDescContent}>
                         Browse the gallery and choose an invitation style that fits your theme. Each design is ready for your customisation and comes with optional matching RSVP cards and information cards.
                     </Typography>
-                    <Button variant="contained" sx={styles.actionButton} color="primaryCard">See Catalogue</Button>
+                    <Button sx={styles.actionButton} color="primaryCard" disableElevation>See Catalogue</Button>
                 </Box>
             </Box>
         </Box>

@@ -19,8 +19,6 @@ import { alpha, styled } from '@mui/material/styles';
 import makeStyles from './styles';
 import logo from '../../public/static/assets/img/logo.png';
 
-const pages = ['Home', 'About Us', 'Product', 'Blog', 'FAQ\'s'];
-
 const Button = styled((props) => (
     <MuiButton
         {...props}
@@ -31,6 +29,8 @@ const Button = styled((props) => (
         borderBottom: `2px solid ${alpha(theme.palette.secondary.main, 0.8)}`,
     },
     margin: '0rem 1rem',
+    borderBottom: '2px solid transparent',
+    transition: 'border-bottom .35s',
 }));
 
 const Navbar = () => {

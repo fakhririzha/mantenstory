@@ -6,6 +6,9 @@ const styles = () => ({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     },
+    headerParallax: {
+        height: '70vh',
+    },
 });
 
 export default styles;
