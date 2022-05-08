@@ -1,4 +1,4 @@
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 
 const styles = () => {
     const theme = useTheme();
@@ -49,6 +49,15 @@ const styles = () => {
             textTransform: 'capitalize',
             fontSize: '20px',
             fontStyle: 'italic',
+        },
+        menuNavBtnActive: {
+            my: 2,
+            color: theme.palette.secondary.main,
+            display: 'block',
+            textTransform: 'capitalize',
+            fontSize: '20px',
+            fontStyle: 'italic',
+            borderBottom: `2px solid ${alpha(theme.palette.secondary.main, 0.8)}`,
         },
     };
 };
