@@ -17,7 +17,7 @@ const Accordion = styled((props) => (
     <MuiAccordion
         {...props}
     />
-))(({ theme }) => ({
+))(() => ({
     margin: '1rem',
 }));
 

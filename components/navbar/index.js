@@ -35,7 +35,9 @@ const Navbar = () => {
             <Container maxWidth="xl">
                 <Toolbar sx={styles.toolBar} disableGutters>
                     <Box sx={styles.logoDesktop}>
-                        <Image src={logo} alt="logo" />
+                        <Link href="/" passHref>
+                            <Image src={logo} alt="logo" />
+                        </Link>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -74,7 +76,9 @@ const Navbar = () => {
                         </Menu>
                     </Box>
                     <Box sx={styles.logoMobile}>
-                        <Image src={logo} alt="logo" />
+                        <Link href="/" passHref>
+                            <Image src={logo} alt="logo" />
+                        </Link>
                     </Box>
                     <Box sx={styles.menuNav}>
                         <Link href="/" passHref>

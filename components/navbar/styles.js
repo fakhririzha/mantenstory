@@ -19,6 +19,9 @@ const styles = () => {
                 xs: 'none',
                 md: 'flex',
             },
+            '& :hover': {
+                cursor: 'pointer',
+            },
         },
         logoMobile: {
             width: '80px',
