@@ -25,7 +25,6 @@ const Divider = () => {
 const Product = () => {
     const styles = makeStyles();
 
-    const matchesMobile = useMediaQuery('(min-width:0px) and (max-width:719px)');
     const matchesDesktop = useMediaQuery('(min-width:1200px)');
 
     return (
