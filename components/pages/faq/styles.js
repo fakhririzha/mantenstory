@@ -21,21 +21,33 @@ const styles = () => {
             fontSize: '18px',
             fontStyle: 'italic',
             color: theme.palette.secondary.main,
-            padding: '1rem 5rem',
+            padding: '0rem',
+            [theme.breakpoints.up('tablet')]: {
+                padding: '1rem 5rem',
+            },
         },
         accordionTitle: {
-            fontSize: '25px',
+            fontSize: '18px',
+            [theme.breakpoints.up('tablet')]: {
+                fontSize: '25px',
+            },
             color: theme.palette.primary.main,
         },
         accordionDescription: {
-            fontSize: '18px',
+            fontSize: '14px',
+            [theme.breakpoints.up('tablet')]: {
+                fontSize: '18px',
+            },
             color: theme.palette.secondary.main,
             textAlign: 'justify',
             paddingTop: '2rem',
             paddingBottom: '2rem',
         },
         accordionBox: {
-            padding: '2.5rem 10rem',
+            paddingBottom: '5rem',
+            [theme.breakpoints.up('tablet')]: {
+                padding: '2.5rem 10rem',
+            },
         },
     };
 };

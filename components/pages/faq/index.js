@@ -21,23 +21,21 @@ const Accordion = styled((props) => (
     margin: '1rem',
 }));
 
-const AccordionSummary = styled((props) => (
-    <MuiAccordionSummary
-        {...props}
-    />
-))(({ theme }) => ({
+const AccordionSummary = styled((props) => <MuiAccordionSummary {...props} />)(({ theme }) => ({
     backgroundColor: theme.palette.primaryCard.main,
-    padding: '1rem 5rem',
+    padding: '1rem',
+    [theme.breakpoints.up('tablet')]: {
+        padding: '1rem 5rem',
+    },
 }));
 
-const AccordionDetails = styled((props) => (
-    <MuiAccordionDetails
-        {...props}
-    />
-))(({ theme }) => ({
+const AccordionDetails = styled((props) => <MuiAccordionDetails {...props} />)(({ theme }) => ({
     borderTop: `1px solid ${alpha(theme.palette.secondary.main, 0.2)}`,
     backgroundColor: theme.palette.primaryCard.main,
-    padding: '1rem 5rem',
+    padding: '1rem',
+    [theme.breakpoints.up('tablet')]: {
+        padding: '1rem 5rem',
+    },
 }));
 
 const Header = () => {
