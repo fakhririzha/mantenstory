@@ -65,6 +65,9 @@ const styles = () => {
         leftHeadline: {
             backgroundImage: "url('/static/assets/img/blog-1.png')",
             display: 'flex',
+            '& :hover': {
+                cursor: 'pointer',
+            },
         },
         leftHeadlineTitle: {
             fontSize: '25px',
@@ -103,11 +106,17 @@ const styles = () => {
             backgroundImage: "url('/static/assets/img/blog-2.png')",
             backgroundSize: 'cover',
             display: 'flex',
+            '& :hover': {
+                cursor: 'pointer',
+            },
         },
         rightHeadlineChildThree: {
             backgroundImage: "url('/static/assets/img/blog-3.png')",
             backgroundSize: 'cover',
             display: 'flex',
+            '& :hover': {
+                cursor: 'pointer',
+            },
         },
         rightHeadlineWrapper: {
             position: 'relative',
@@ -133,6 +142,11 @@ const styles = () => {
             fontStyle: 'italic',
             color: theme.palette.secondary.main,
             paddingTop: '1rem',
+        },
+        blogGrid: {
+            '& :hover': {
+                cursor: 'pointer',
+            },
         },
     };
 };
