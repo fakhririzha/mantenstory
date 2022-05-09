@@ -9,12 +9,11 @@ import stripHtmlTags from '../../components/helpers/stripHtmlTags';
 
 const Slug = () => {
     const router = useRouter();
-    console.log(stripHtmlTags(router.query.slug));
 
     return (
         <>
             <Navbar />
-            <SimpleArticle />
+            {stripHtmlTags(router.query.slug) === 'test' && <SimpleArticle />}
             <Footer />
         </>
     );
