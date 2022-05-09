@@ -19,7 +19,9 @@ const styles = () => {
             fontSize: '18px',
             fontStyle: 'italic',
             color: theme.palette.secondary.main,
-            padding: '0rem 30rem 10rem 30rem',
+            [theme.breakpoints.up('tablet')]: {
+                padding: '0rem 30rem 10rem 30rem',
+            },
         },
         footer: {
             backgroundColor: theme.palette.primaryCard.main,

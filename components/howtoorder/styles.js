@@ -12,6 +12,9 @@ const styles = () => {
             paddingRight: '0px !important',
             paddingBottom: '2.5rem',
         },
+        mobileStepper: {
+            padding: '2rem',
+        },
         title: {
             paddingTop: '5rem',
             fontSize: '25px',

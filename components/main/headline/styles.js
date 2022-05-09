@@ -5,7 +5,10 @@ const styles = () => {
 
     return {
         headlineBox: {
-            marginTop: '10rem',
+            marginTop: '2.5rem',
+            [theme.breakpoints.up('tablet')]: {
+                marginTop: '10rem',
+            },
         },
         title: {
             color: theme.palette.primary.main,

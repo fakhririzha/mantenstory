@@ -5,7 +5,10 @@ const styles = () => {
 
     return {
         whyChooseUs: {
-            marginTop: '-20rem',
+            marginTop: '2.5rem',
+            [theme.breakpoints.up('tablet')]: {
+                marginTop: '-20rem',
+            },
         },
         title: {
             fontSize: '25px',
@@ -21,7 +24,10 @@ const styles = () => {
             padding: '1.5rem',
         },
         descNumber: {
-            fontSize: '25px',
+            fontSize: '18px',
+            [theme.breakpoints.up('tablet')]: {
+                fontSize: '25px',
+            },
             textAlign: 'center',
             color: theme.palette.secondary.main,
         },
@@ -29,13 +35,18 @@ const styles = () => {
             fontSize: '18px',
             fontStyle: 'italic',
             color: theme.palette.secondary.main,
-            borderBottom: '2px solid #70707070',
-            paddingBottom: '2rem',
+            [theme.breakpoints.up('tablet')]: {
+                borderBottom: '2px solid #70707070',
+                paddingBottom: '2rem',
+            },
         },
         descContentLast: {
             fontSize: '18px',
             fontStyle: 'italic',
             color: theme.palette.secondary.main,
+        },
+        mobileGrid: {
+            marginTop: '1.5rem',
         },
     };
 };

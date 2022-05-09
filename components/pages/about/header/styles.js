@@ -25,8 +25,12 @@ const styles = () => {
         description: {
             fontSize: '18px',
             fontStyle: 'italic',
+            textAlign: 'justify',
             color: theme.palette.secondary.main,
-            padding: '1rem 5rem',
+            [theme.breakpoints.up('tablet')]: {
+                padding: '1rem 5rem',
+                textAlign: 'center',
+            },
         },
         descriptionLocation: {
             fontSize: '18px',

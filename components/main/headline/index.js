@@ -11,20 +11,18 @@ const Main = () => {
 
     return (
         <Box sx={styles.headlineBox}>
-            <Typography sx={styles.title}>
-                Beginning of Memorable Story
-            </Typography>
+            <Typography sx={styles.title}>Beginning of Memorable Story</Typography>
             <Grid container spacing={2} sx={styles.descriptionGrid}>
-                <Grid item xs />
-                <Grid item xs={4.5}>
+                <Grid item xs lg />
+                <Grid item xs={12} lg={6} sx={styles.gridHeadline}>
                     <Typography sx={styles.description}>
-                        Browse our beautiful invitations and wedding souvenir, featuring timeless, elegant designs. With high quality stationery customised to fit your personal tastes and style make the most important first impression for your guests. Create your memorable wedding with us.
+                        Browse our beautiful invitations and wedding souvenir, featuring timeless, elegant designs. With high quality stationery
+                        customised to fit your personal tastes and style make the most important first impression for your guests. Create your
+                        memorable wedding with us.
                     </Typography>
-                    <Typography sx={styles.descriptionFooter}>
-                        - Manten Story -
-                    </Typography>
+                    <Typography sx={styles.descriptionFooter}>- Manten Story -</Typography>
                 </Grid>
-                <Grid item xs />
+                <Grid item xs lg />
             </Grid>
         </Box>
     );

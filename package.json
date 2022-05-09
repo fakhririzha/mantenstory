@@ -30,6 +30,7 @@
     "next": "^12.1.5",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-instagram-embed": "^3.0.0",
     "react-parallax": "^3.3.0"
   },
   "devDependencies": {

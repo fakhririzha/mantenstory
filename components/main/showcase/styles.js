@@ -5,7 +5,10 @@ const styles = () => {
 
     return {
         showcaseBox: {
-            marginTop: '10rem',
+            marginTop: '2.5rem',
+            [theme.breakpoints.up('tablet')]: {
+                marginTop: '10rem',
+            },
         },
         showcaseOne: {
             position: 'relative',
@@ -58,6 +61,10 @@ const styles = () => {
         actionButton: {
             marginTop: '2rem',
             fontStyle: 'italic',
+            textTransform: 'capitalize',
+            color: theme.palette.secondary.main,
+        },
+        actionButtonMobile: {
             textTransform: 'capitalize',
             color: theme.palette.secondary.main,
         },

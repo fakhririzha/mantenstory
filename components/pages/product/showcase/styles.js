@@ -6,6 +6,11 @@ const styles = () => {
     return {
         productBox: {
             marginTop: '2.5rem',
+            paddingBottom: '25rem',
+            [theme.breakpoints.up('tablet')]: {
+                marginTop: '2.5rem',
+                paddingBottom: '0rem',
+            },
         },
         productOne: {
             position: 'relative',

@@ -31,7 +31,9 @@ const styles = () => {
             fontSize: '18px',
             fontStyle: 'italic',
             color: theme.palette.secondary.main,
-            padding: '0 8rem',
+            [theme.breakpoints.up('tablet')]: {
+                padding: '0 8rem',
+            },
         },
         testimonialItem__people: {
             fontSize: '19px',
