@@ -50,6 +50,14 @@ const styles = () => {
             fontStyle: 'italic',
         },
         lineStepper: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                height: '120px',
+                width: '2px',
+                zIndex: '0',
+                backgroundColor: theme.palette.grey.main,
+                position: 'relative',
+                left: '4.5rem',
+            },
             height: '120px',
             width: '2px',
             zIndex: '0',
