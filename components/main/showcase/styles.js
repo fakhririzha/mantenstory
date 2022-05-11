@@ -10,11 +10,25 @@ const styles = () => {
                 marginTop: '10rem',
             },
         },
+        showcaseOneWrapper: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                marginLeft: '5rem',
+                marginRight: '5rem',
+            },
+        },
         showcaseOne: {
             position: 'relative',
             maxWidth: '60%',
         },
         showcaseOneDescription: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                position: 'relative',
+                bottom: '50vh',
+                left: '42.5vw',
+                width: '40vw',
+                backgroundColor: theme.palette.primaryCard.main,
+                padding: '2.5rem',
+            },
             position: 'relative',
             bottom: '50vh',
             left: '40vw',
@@ -38,10 +52,21 @@ const styles = () => {
             left: '31.5vw',
         },
         showcaseTwoWrapper: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                marginLeft: '5rem',
+                marginRight: '5rem',
+            },
             position: 'relative',
             top: '-150px',
         },
         showcaseTwoDescription: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                position: 'relative',
+                bottom: '50vh',
+                width: '40vw',
+                backgroundColor: theme.palette.primaryCard.main,
+                padding: '2.5rem',
+            },
             position: 'relative',
             bottom: '50vh',
             width: '40vw',

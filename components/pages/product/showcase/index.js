@@ -11,6 +11,8 @@ import Link from 'next/link';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 
+import Fade from 'react-reveal/Fade';
+
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import productOne from '../../../../assets/img/product-1.png';
@@ -29,58 +31,64 @@ const Main = () => {
         <Box sx={styles.productBox}>
             {matchDesktop && (
                 <>
-                    <Box>
-                        <Box sx={styles.productOne}>
-                            <Image src={productOne} alt="logo" />
+                    <Fade right>
+                        <Box>
+                            <Box sx={styles.productOne}>
+                                <Image src={productOne} alt="logo" />
+                            </Box>
+                            <Box sx={styles.productOneDescription}>
+                                <Typography sx={styles.productOneDescTitle}>Silver Series</Typography>
+                                <Typography sx={styles.productOneDescContent}>
+                                    Undangan pernikahan model softcover template dengan koleksi desain dan ukuran yang variatif. Pada undangan silver
+                                    series hanya bisa merubah isi redaksi nya saja tanpa merubah desain dan warna.
+                                </Typography>
+                                <Link href="/product/silver.html" passHref>
+                                    <Button variant="contained" sx={styles.actionButton} color="primaryCard">
+                                        See Catalogue
+                                    </Button>
+                                </Link>
+                            </Box>
                         </Box>
-                        <Box sx={styles.productOneDescription}>
-                            <Typography sx={styles.productOneDescTitle}>Silver Series</Typography>
-                            <Typography sx={styles.productOneDescContent}>
-                                Undangan pernikahan model softcover template dengan koleksi desain dan ukuran yang variatif. Pada undangan silver
-                                series hanya bisa merubah isi redaksi nya saja tanpa merubah desain dan warna.
-                            </Typography>
-                            <Link href="/product/silver.html" passHref>
-                                <Button variant="contained" sx={styles.actionButton} color="primaryCard">
-                                    See Catalogue
-                                </Button>
-                            </Link>
+                    </Fade>
+                    <Fade left>
+                        <Box sx={styles.productTwoWrapper}>
+                            <Box sx={styles.productTwo}>
+                                <Image src={productTwo} alt="logo" />
+                            </Box>
+                            <Box sx={styles.productTwoDescription}>
+                                <Typography sx={styles.productTwoDescTitle}>Gold Series</Typography>
+                                <Typography sx={styles.productTwoDescContent}>
+                                    Undangan pernikahan model single hardcover dengan koleksi desain yang sudah tersedia di katalog atau instagram
+                                    mantenstory.co. Pada undangan gold series, desain masih bisa di modifikasi seperti pergantian warna, mix motif
+                                    ataupun format tulisannya.
+                                </Typography>
+                                <Link href="/product/gold.html" passHref>
+                                    <Button variant="contained" sx={styles.actionButton} color="primaryCard">
+                                        See Catalogue
+                                    </Button>
+                                </Link>
+                            </Box>
                         </Box>
-                    </Box>
-                    <Box sx={styles.productTwoWrapper}>
-                        <Box sx={styles.productTwo}>
-                            <Image src={productTwo} alt="logo" />
+                    </Fade>
+                    <Fade right>
+                        <Box sx={styles.productThreeWrapper}>
+                            <Box sx={styles.productThree}>
+                                <Image src={productThree} alt="logo" />
+                            </Box>
+                            <Box sx={styles.productThreeDescription}>
+                                <Typography sx={styles.productThreeDescTitle}>Platinum Series</Typography>
+                                <Typography sx={styles.productThreeDescContent}>
+                                    Undangan pernikahan model single hardcover atau trifold hardcover dengan desain custom yang lebih personal dan
+                                    eksklusive. Pada undangan tipe platinum client memperoleh akses ke team desainer.
+                                </Typography>
+                                <Link href="/product/platinum.html" passHref>
+                                    <Button variant="contained" sx={styles.actionButton} color="primaryCard">
+                                        See Catalogue
+                                    </Button>
+                                </Link>
+                            </Box>
                         </Box>
-                        <Box sx={styles.productTwoDescription}>
-                            <Typography sx={styles.productTwoDescTitle}>Gold Series</Typography>
-                            <Typography sx={styles.productTwoDescContent}>
-                                Undangan pernikahan model single hardcover dengan koleksi desain yang sudah tersedia di katalog atau instagram
-                                mantenstory.co. Pada undangan gold series, desain masih bisa di modifikasi seperti pergantian warna, mix motif ataupun
-                                format tulisannya.
-                            </Typography>
-                            <Link href="/product/gold.html" passHref>
-                                <Button variant="contained" sx={styles.actionButton} color="primaryCard">
-                                    See Catalogue
-                                </Button>
-                            </Link>
-                        </Box>
-                    </Box>
-                    <Box sx={styles.productThreeWrapper}>
-                        <Box sx={styles.productThree}>
-                            <Image src={productThree} alt="logo" />
-                        </Box>
-                        <Box sx={styles.productThreeDescription}>
-                            <Typography sx={styles.productThreeDescTitle}>Platinum Series</Typography>
-                            <Typography sx={styles.productThreeDescContent}>
-                                Undangan pernikahan model single hardcover atau trifold hardcover dengan desain custom yang lebih personal dan
-                                eksklusive. Pada undangan tipe platinum client memperoleh akses ke team desainer.
-                            </Typography>
-                            <Link href="/product/platinum.html" passHref>
-                                <Button variant="contained" sx={styles.actionButton} color="primaryCard">
-                                    See Catalogue
-                                </Button>
-                            </Link>
-                        </Box>
-                    </Box>
+                    </Fade>
                 </>
             )}
             {matchMobile && (
