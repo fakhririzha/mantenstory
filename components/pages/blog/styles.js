@@ -74,12 +74,18 @@ const styles = () => {
             paddingBottom: '1rem',
         },
         leftHeadlineDescription: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                fontSize: '14px',
+            },
             fontSize: '18px',
             fontStyle: 'italic',
             color: theme.palette.secondary.main,
             paddingTop: '1rem',
         },
         leftHeadlineWrapper: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                padding: '1.25rem 3rem',
+            },
             position: 'relative',
             alignSelf: 'end',
             height: '35%',
@@ -93,10 +99,16 @@ const styles = () => {
             gridTemplateRows: '1fr 1fr',
         },
         rightHeadlineTitle: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                fontSize: '18px',
+            },
             fontSize: '25px',
             paddingBottom: '1rem',
         },
         rightHeadlineDescription: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                fontSize: '14px',
+            },
             fontSize: '18px',
             fontStyle: 'italic',
             color: theme.palette.secondary.main,
@@ -119,6 +131,9 @@ const styles = () => {
             },
         },
         rightHeadlineWrapper: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                padding: '1.25rem',
+            },
             position: 'relative',
             alignSelf: 'end',
             height: '65%',

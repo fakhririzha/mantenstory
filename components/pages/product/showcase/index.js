@@ -32,7 +32,7 @@ const Main = () => {
             {matchDesktop && (
                 <>
                     <Fade right>
-                        <Box>
+                        <Box sx={styles.productOneWrapper}>
                             <Box sx={styles.productOne}>
                                 <Image src={productOne} alt="logo" />
                             </Box>
