@@ -117,7 +117,7 @@ const Testimonials = () => {
                             <Grid item xs={12} md={6} lg={3} sx={styles.igFeedWrapper}>
                                 <Link href={`https://instagram.com/p/${item.node.shortcode}`} target="_blank" passHref>
                                     <Image
-                                        src={item.node.thumbnail_resources[3].src.replace(/^[^.]*/, 'https://scontent-atL3-2')}
+                                        src={item.node.thumbnail_resources[3].src.replace(/^[^.]*/, 'https://scontent-atl3-2')}
                                         alt={item.node.shortcode}
                                         width="480"
                                         height="480"
