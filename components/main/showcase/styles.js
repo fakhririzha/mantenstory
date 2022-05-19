@@ -23,7 +23,7 @@ const styles = () => {
         showcaseOneDescription: {
             [theme.breakpoints.between('lg', 'xl')]: {
                 position: 'relative',
-                bottom: '50vh',
+                bottom: '55vh',
                 left: '42.5vw',
                 width: '40vw',
                 backgroundColor: theme.palette.primaryCard.main,
@@ -62,7 +62,7 @@ const styles = () => {
         showcaseTwoDescription: {
             [theme.breakpoints.between('lg', 'xl')]: {
                 position: 'relative',
-                bottom: '50vh',
+                bottom: '55vh',
                 width: '40vw',
                 backgroundColor: theme.palette.primaryCard.main,
                 padding: '2.5rem',
