@@ -11,6 +11,10 @@ const styles = () => {
             paddingTop: '5rem',
             textAlign: 'center',
         },
+        titleWrapperInstagram: {
+            paddingBottom: '5rem',
+            textAlign: 'center',
+        },
         title: {
             fontSize: '25px',
             color: theme.palette.primary.main,
@@ -42,7 +46,13 @@ const styles = () => {
             paddingTop: '5rem',
         },
         exampleWrapper: {
-            paddingTop: '15rem',
+            paddingTop: '10rem',
+            paddingBottom: '5rem',
+        },
+        igFeedWrapper: {
+            '& :hover': {
+                cursor: 'pointer',
+            },
         },
     };
 };
