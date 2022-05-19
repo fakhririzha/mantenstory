@@ -16,14 +16,6 @@ const Main = () => {
     const matchMobile = useMediaQuery('(min-width:0px) and (max-width:719px)');
     const matchDesktop = useMediaQuery('(min-width:1200px)');
 
-    const data = fetch('https://www.instagram.com/mantenstory.co/?__a=1')
-        .then((results) => {
-            results.json();
-        })
-        .then((resultJson) => resultJson);
-
-    console.log(data);
-
     return (
         <Box sx={styles.whyChooseUs}>
             <Typography sx={styles.title}>Why Choose Us?</Typography>

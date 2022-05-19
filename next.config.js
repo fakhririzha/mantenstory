@@ -4,4 +4,7 @@ module.exports = {
         styledComponents: true,
         swcMinify: true,
     },
+    images: {
+        domains: ['scontent-atl3-2.cdninstagram.com'],
+    },
 };
