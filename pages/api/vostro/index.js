@@ -12,7 +12,7 @@ export default function handler(req, res) {
 
     let value;
 
-    db.query('SELECT * FROM users', (error, results, fields) => {
+    db.query('SELECT * FROM users', (error, results) => {
         if (error) throw error;
         console.log('The result is: ', results);
         value = results;
