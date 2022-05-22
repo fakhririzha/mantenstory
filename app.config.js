@@ -1,9 +1,9 @@
 module.exports = {
     db: {
         host: '103.253.212.95',
-        user: 'root',
-        password: '',
-        database: 'mantenstory',
+        user: 'manq8896_mantenstoryco',
+        password: 'bismillah_b3rk4hselalu',
+        database: 'manq8896_mantenstoryco',
     },
     baseUrl: 'https://mantenstory.co',
     encryption: {
