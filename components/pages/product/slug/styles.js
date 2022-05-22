@@ -10,6 +10,10 @@ const styles = () => {
         headerGrid: {
             padding: '5rem 0',
         },
+        imgHeader: {
+            width: '100%',
+            height: 'auto',
+        },
         title: {
             fontSize: '25px',
             color: theme.palette.primary.main,
@@ -41,7 +45,7 @@ const styles = () => {
             maxWidth: '100%',
             height: '2px',
             borderTop: '1px solid #707070',
-            paddingBottom: '5rem',
+            paddingBottom: '2.5rem',
         },
         googleMap: {
             border: '0',

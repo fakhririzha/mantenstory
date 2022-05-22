@@ -1,11 +1,12 @@
 import mysql from 'mysql';
+import { db as Database } from '@config';
 
 export default function handler(req, res) {
     const db = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'mantenstory',
+        host: Database.host,
+        user: Database.user,
+        password: Database.password,
+        database: Database.database,
     });
 
     db.connect();
@@ -14,11 +15,10 @@ export default function handler(req, res) {
 
     db.query('SELECT * FROM users', (error, results) => {
         if (error) throw error;
-        console.log('The result is: ', results);
         value = results;
+        console.log(value[0]);
+        res.status(200).json({ values: value });
     });
 
     db.end();
-
-    res.status(200).json({ values: value });
 }
