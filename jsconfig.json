@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "module": "es6",
+        "allowSyntheticDefaultImports": true,
+        "paths": {
+            "@config": [
+                "app.config.js"
+            ],
+            "@rest/*": [
+                "rest/astro/*"
+            ],
+            "@astro_components/*": [
+                "astro_components/*"
+            ],
+            "@astro_layout": [
+                "astro_components/dashboard/index.js"
+            ],
+            "@components/*": [
+                "components/*"
+            ],
+            "@helpers/*": [
+                "components/helpers/*"
+            ],
+            "@astro_plugins/*": [
+                "astro_components/plugins/*"
+            ],
+        }
+    }
+}

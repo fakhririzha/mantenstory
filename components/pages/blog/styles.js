@@ -101,6 +101,7 @@ const styles = () => {
         rightHeadlineTitle: {
             [theme.breakpoints.between('lg', 'xl')]: {
                 fontSize: '18px',
+                paddingBottom: '.5rem',
             },
             fontSize: '25px',
             paddingBottom: '1rem',
@@ -108,6 +109,7 @@ const styles = () => {
         rightHeadlineDescription: {
             [theme.breakpoints.between('lg', 'xl')]: {
                 fontSize: '14px',
+                paddingTop: '.5rem',
             },
             fontSize: '18px',
             fontStyle: 'italic',
@@ -147,12 +149,18 @@ const styles = () => {
             borderTop: '1px solid #707070',
         },
         miniBlogTitle: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                fontSize: '18px',
+            },
             fontSize: '25px',
             paddingTop: '1rem',
             paddingBottom: '1rem',
             color: theme.palette.primary.main,
         },
         miniBlogDescription: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                fontSize: '14px',
+            },
             fontSize: '18px',
             fontStyle: 'italic',
             color: theme.palette.secondary.main,

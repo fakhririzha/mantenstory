@@ -1,17 +1,13 @@
+/* eslint-disable max-len */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
-
-// import InstagramEmbed from 'react-instagram-embed';
+import Link from 'next/link';
 
 import { useKeenSlider } from 'keen-slider/react';
-import exampleOne from '../../assets/img/example-1.png';
-import exampleTwo from '../../assets/img/example-2.png';
-import exampleThree from '../../assets/img/example-3.png';
-import exampleFour from '../../assets/img/example-4.png';
 
 import 'keen-slider/keen-slider.min.css';
 
@@ -31,6 +27,22 @@ const Testimonials = () => {
             perView: 2,
         },
     });
+
+    const link = 'https://api.webscraping.ai/html';
+    const apiKey = '3b94f274-c505-4f1a-94d2-3194ac3c1a60';
+    const userName = 'mantenstory.co';
+
+    const [instagramData, setInstagramData] = React.useState();
+
+    React.useEffect(() => {
+        fetch(`${link}?api_key=${apiKey}&proxy=residential&url=https%3A%2F%2Fwww.instagram.com%2F${userName}%2F%3F__a%3D1&js=false`)
+            .then((results) => results.json())
+            .then((data) => {
+                const filtered = data.graphql.user.edge_owner_to_timeline_media.edges.slice(0, 4);
+                console.log(filtered);
+                setInstagramData(filtered);
+            });
+    }, []);
 
     return (
         <Container maxWidth="xl" sx={styles.testimonialWrapper}>
@@ -95,22 +107,27 @@ const Testimonials = () => {
                     </div>
                 </div>
             </Box>
-            <Box sx={styles.exampleWrapper}>
-                <Grid container maxWidth="xl">
-                    <Grid item xs={12} md={6} lg={3}>
-                        <Image src={exampleOne} alt="example-1" />
+            {instagramData && (
+                <Box sx={styles.exampleWrapper}>
+                    <Box sx={styles.titleWrapperInstagram}>
+                        <Typography sx={styles.title}>Latest Instagram Post</Typography>
+                    </Box>
+                    <Grid container maxWidth="xl" spacing={2}>
+                        {instagramData.map((item) => (
+                            <Grid item xs={12} md={6} lg={3} sx={styles.igFeedWrapper}>
+                                <Link href={`https://instagram.com/p/${item.node.shortcode}`} target="_blank" passHref>
+                                    <Image
+                                        src={item.node.thumbnail_resources[3].src.replace(/^[^.]*/, 'https://scontent-atl3-2')}
+                                        alt={item.node.shortcode}
+                                        width="480"
+                                        height="480"
+                                    />
+                                </Link>
+                            </Grid>
+                        ))}
                     </Grid>
-                    <Grid item xs={12} md={6} lg={3}>
-                        <Image src={exampleTwo} alt="example-2" />
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={3}>
-                        <Image src={exampleThree} alt="example-3" />
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={3}>
-                        <Image src={exampleFour} alt="example-4" />
-                    </Grid>
-                </Grid>
-            </Box>
+                </Box>
+            )}
         </Container>
     );
 };

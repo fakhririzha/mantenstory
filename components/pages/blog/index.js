@@ -47,7 +47,7 @@ const Product = () => {
                         <Link href="/blog/test.html" passHref>
                             <Box sx={styles.rightHeadlineChildTwo}>
                                 <Box sx={styles.rightHeadlineWrapper}>
-                                    <Typography sx={styles.leftHeadlineTitle}>Title</Typography>
+                                    <Typography sx={styles.rightHeadlineTitle}>Title</Typography>
                                     <Divider />
                                     <Typography sx={styles.rightHeadlineDescription}>
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -59,7 +59,7 @@ const Product = () => {
                         <Link href="/blog/test.html" passHref>
                             <Box sx={styles.rightHeadlineChildThree}>
                                 <Box sx={styles.rightHeadlineWrapper}>
-                                    <Typography sx={styles.leftHeadlineTitle}>Title</Typography>
+                                    <Typography sx={styles.rightHeadlineTitle}>Title</Typography>
                                     <Divider />
                                     <Typography sx={styles.rightHeadlineDescription}>
                                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
