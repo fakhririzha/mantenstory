@@ -8,7 +8,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import stripHtmlTags from '@components/helpers/stripHtmlTags';
-import platinumHeader from '../../../../assets/img/platinum-header.png';
 
 import productOne from '../../../../assets/img/gambar-produk-1.png';
 import productTwo from '../../../../assets/img/gambar-produk-2.png';
