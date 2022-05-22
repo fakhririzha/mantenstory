@@ -1,3 +1,7 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable array-callback-return */
+/* eslint-disable consistent-return */
+/* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable max-len */
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -9,154 +13,134 @@ import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Link from 'next/link';
 import Typography from '@mui/material/Typography';
-import Image from 'next/image';
 
 import Fade from 'react-reveal/Fade';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
-
-import productOne from '../../../../assets/img/product-1.png';
-import productTwo from '../../../../assets/img/product-2.png';
-import productThree from '../../../../assets/img/product-3.png';
 
 import makeStyles from './styles';
 
 const Main = () => {
     const styles = makeStyles();
 
+    const [productData, setProductData] = React.useState(null);
+
     const matchMobile = useMediaQuery('(min-width:0px) and (max-width:719px)');
     const matchDesktop = useMediaQuery('(min-width:1200px)');
+
+    React.useEffect(() => {
+        fetch('/api/astro/product')
+            .then((data) => data.json())
+            .then((results) => {
+                setProductData(results);
+                console.log(results);
+            })
+            .catch((err) => console.error('Error: ', err));
+    }, []);
 
     return (
         <Box sx={styles.productBox}>
             {matchDesktop && (
                 <>
-                    <Fade right>
-                        <Box sx={styles.productOneWrapper}>
-                            <Box sx={styles.productOne}>
-                                <Image src={productOne} alt="logo" />
-                            </Box>
-                            <Box sx={styles.productOneDescription}>
-                                <Typography sx={styles.productOneDescTitle}>Silver Series</Typography>
-                                <Typography sx={styles.productOneDescContent}>
-                                    Undangan pernikahan model softcover template dengan koleksi desain dan ukuran yang variatif. Pada undangan silver
-                                    series hanya bisa merubah isi redaksi nya saja tanpa merubah desain dan warna.
-                                </Typography>
-                                <Link href="/product/silver.html" passHref>
-                                    <Button variant="contained" sx={styles.actionButton} color="primaryCard">
-                                        See Catalogue
-                                    </Button>
-                                </Link>
-                            </Box>
-                        </Box>
-                    </Fade>
-                    <Fade left>
-                        <Box sx={styles.productTwoWrapper}>
-                            <Box sx={styles.productTwo}>
-                                <Image src={productTwo} alt="logo" />
-                            </Box>
-                            <Box sx={styles.productTwoDescription}>
-                                <Typography sx={styles.productTwoDescTitle}>Gold Series</Typography>
-                                <Typography sx={styles.productTwoDescContent}>
-                                    Undangan pernikahan model single hardcover dengan koleksi desain yang sudah tersedia di katalog atau instagram
-                                    mantenstory.co. Pada undangan gold series, desain masih bisa di modifikasi seperti pergantian warna, mix motif
-                                    ataupun format tulisannya.
-                                </Typography>
-                                <Link href="/product/gold.html" passHref>
-                                    <Button variant="contained" sx={styles.actionButton} color="primaryCard">
-                                        See Catalogue
-                                    </Button>
-                                </Link>
-                            </Box>
-                        </Box>
-                    </Fade>
-                    <Fade right>
-                        <Box sx={styles.productThreeWrapper}>
-                            <Box sx={styles.productThree}>
-                                <Image src={productThree} alt="logo" />
-                            </Box>
-                            <Box sx={styles.productThreeDescription}>
-                                <Typography sx={styles.productThreeDescTitle}>Platinum Series</Typography>
-                                <Typography sx={styles.productThreeDescContent}>
-                                    Undangan pernikahan model single hardcover atau trifold hardcover dengan desain custom yang lebih personal dan
-                                    eksklusive. Pada undangan tipe platinum client memperoleh akses ke team desainer.
-                                </Typography>
-                                <Link href="/product/platinum.html" passHref>
-                                    <Button variant="contained" sx={styles.actionButton} color="primaryCard">
-                                        See Catalogue
-                                    </Button>
-                                </Link>
-                            </Box>
-                        </Box>
-                    </Fade>
+                    {productData &&
+                        productData.data &&
+                        productData.data.map((product) => {
+                            if (product.id === 1) {
+                                return (
+                                    <Fade right>
+                                        <Box sx={styles.productOneWrapper}>
+                                            <Box sx={styles.productOne}>
+                                                <img src={product.image_base64} alt={product.title} />
+                                            </Box>
+                                            <Box sx={styles.productOneDescription}>
+                                                <Typography sx={styles.productOneDescTitle}>{product.title}</Typography>
+                                                <div
+                                                    style={styles.productOneDescContent}
+                                                    dangerouslySetInnerHTML={{ __html: product.short_description }}
+                                                />
+                                                <Link href={`/product/${product.url_key}.html`} passHref>
+                                                    <Button variant="contained" sx={styles.actionButton} color="primaryCard">
+                                                        See Catalogue
+                                                    </Button>
+                                                </Link>
+                                            </Box>
+                                        </Box>
+                                    </Fade>
+                                );
+                            }
+                            if (product.id % 2 === 0 && product.id > 1) {
+                                return (
+                                    <Fade left>
+                                        <Box sx={styles.productTwoWrapper}>
+                                            <Box sx={styles.productTwo}>
+                                                <img src={product.image_base64} alt={product.title} />
+                                            </Box>
+                                            <Box sx={styles.productTwoDescription}>
+                                                <Typography sx={styles.productTwoDescTitle}>{product.title}</Typography>
+                                                <div
+                                                    style={styles.productTwoDescContent}
+                                                    dangerouslySetInnerHTML={{ __html: product.short_description }}
+                                                />
+                                                <Link href={`/product/${product.url_key}.html`} passHref>
+                                                    <Button variant="contained" sx={styles.actionButton} color="primaryCard">
+                                                        See Catalogue
+                                                    </Button>
+                                                </Link>
+                                            </Box>
+                                        </Box>
+                                    </Fade>
+                                );
+                            }
+                            if (product.id % 2 === 1 && product.id > 1) {
+                                return (
+                                    <Fade right>
+                                        <Box sx={styles.productThreeWrapper}>
+                                            <Box sx={styles.productThree}>
+                                                <img src={product.image_base64} alt={product.title} />
+                                            </Box>
+                                            <Box sx={styles.productThreeDescription}>
+                                                <Typography sx={styles.productThreeDescTitle}>{product.title}</Typography>
+                                                <div
+                                                    style={styles.productThreeDescContent}
+                                                    dangerouslySetInnerHTML={{ __html: product.short_description }}
+                                                />
+                                                <Link href={`/product/${product.url_key}.html`} passHref>
+                                                    <Button variant="contained" sx={styles.actionButton} color="primaryCard">
+                                                        See Catalogue
+                                                    </Button>
+                                                </Link>
+                                            </Box>
+                                        </Box>
+                                    </Fade>
+                                );
+                            }
+                        })}
                 </>
             )}
             {matchMobile && (
                 <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <Card>
-                            <CardMedia component="img" height="140" image="/static/assets/img/product-1.png" />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    Silver Series
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Undangan pernikahan model softcover template dengan koleksi desain dan ukuran yang variatif. Pada undangan silver
-                                    series hanya bisa merubah isi redaksi nya saja tanpa merubah desain dan warna.
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={styles.cardActions}>
-                                <Link href="/product/silver.html" passHref>
-                                    <Button variant="contained" size="small" color="primaryCard" sx={{ minWidth: '100%' }}>
-                                        See Catalogue
-                                    </Button>
-                                </Link>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Card>
-                            <CardMedia component="img" height="140" image="/static/assets/img/product-2.png" />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    Gold Series
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Undangan pernikahan model single hardcover dengan koleksi desain yang sudah tersedia di katalog atau instagram
-                                    mantenstory.co. Pada undangan gold series, desain masih bisa di modifikasi seperti pergantian warna, mix motif
-                                    ataupun format tulisannya.
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={styles.cardActions}>
-                                <Link href="/product/gold.html" passHref>
-                                    <Button variant="contained" size="small" color="primaryCard" sx={{ minWidth: '100%' }}>
-                                        See Catalogue
-                                    </Button>
-                                </Link>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Card>
-                            <CardMedia component="img" height="140" image="/static/assets/img/product-3.png" />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    Platinum Series
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Undangan pernikahan model single hardcover atau trifold hardcover dengan desain custom yang lebih personal dan
-                                    eksklusive. Pada undangan tipe platinum client memperoleh akses ke team desainer.
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={styles.cardActions}>
-                                <Link href="/product/platinum.html" passHref>
-                                    <Button variant="contained" size="small" color="primaryCard" sx={{ minWidth: '100%' }}>
-                                        See Catalogue
-                                    </Button>
-                                </Link>
-                            </CardActions>
-                        </Card>
-                    </Grid>
+                    {productData &&
+                        productData.data &&
+                        productData.data.map((product) => (
+                            <Grid item xs={12}>
+                                <Card>
+                                    <CardMedia component="img" height="140" image="/static/assets/img/product-1.png" />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {product.title}
+                                        </Typography>
+                                        <div style={styles.mobileDescription} dangerouslySetInnerHTML={{ __html: product.short_description }} />
+                                    </CardContent>
+                                    <CardActions sx={styles.cardActions}>
+                                        <Link href={`/product/${product.url_key}.html`} passHref>
+                                            <Button variant="contained" size="small" color="primaryCard" sx={{ minWidth: '100%' }}>
+                                                See Catalogue
+                                            </Button>
+                                        </Link>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        ))}
                 </Grid>
             )}
         </Box>

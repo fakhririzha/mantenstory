@@ -34,7 +34,7 @@
         "next": "^12.1.5",
         "react": "^18.0.0",
         "react-dom": "^18.0.0",
-        "react-dropzone": "^14.2.1",
+        "react-dropzone": "^11.2.3",
         "react-instagram-embed": "^3.0.0",
         "react-parallax": "^3.3.0",
         "react-reveal": "^1.2.2",

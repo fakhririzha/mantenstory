@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable max-len */
 import * as React from 'react';
 import MuiAccordion from '@mui/material/Accordion';
@@ -13,11 +14,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import makeStyles from './styles';
 
-const Accordion = styled((props) => (
-    <MuiAccordion
-        {...props}
-    />
-))(() => ({
+const Accordion = styled((props) => <MuiAccordion {...props} />)(() => ({
     margin: '1rem',
 }));
 

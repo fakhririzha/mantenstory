@@ -29,7 +29,7 @@ const Content = () => {
     const router = useRouter();
 
     React.useEffect(() => {
-        fetch('/api/astro/faq')
+        fetch('/api/astro/product')
             .then((data) => data.json())
             .then((results) => {
                 setFaqData(results);
@@ -46,18 +46,18 @@ const Content = () => {
         setPage(0);
     };
 
-    const handleClick = (ids) => {
+    const handleClick = (id, title) => {
         setOpen(true);
-        setDeleteId(ids);
+        setDeleteId({ id, title });
     };
 
     const handleDelete = async () => {
-        await fetch('/api/astro/faq/delete', {
+        await fetch('/api/astro/product/delete', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id: deleteId }),
+            body: JSON.stringify({ id: deleteId.id }),
         })
             .then((data) => data.json())
             .then(() => {
@@ -76,9 +76,9 @@ const Content = () => {
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
-                <Link href="/astro/faq/create" passHref>
+                <Link href="/astro/product/create" passHref>
                     <Button variant="contained" color="secondary">
-                        Add New FAQ
+                        Add New Products
                     </Button>
                 </Link>
             </Grid>
@@ -97,7 +97,9 @@ const Content = () => {
                                     <TableRow>
                                         <TableCell>No.</TableCell>
                                         <TableCell>Title</TableCell>
+                                        <TableCell>Short Description</TableCell>
                                         <TableCell>Description</TableCell>
+                                        <TableCell>Image</TableCell>
                                         <TableCell colSpan={2}>Action</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -107,10 +109,16 @@ const Content = () => {
                                             <TableCell>{row.id}</TableCell>
                                             <TableCell>{row.title}</TableCell>
                                             <TableCell>
+                                                <div dangerouslySetInnerHTML={{ __html: row.short_description }} />
+                                            </TableCell>
+                                            <TableCell>
                                                 <div dangerouslySetInnerHTML={{ __html: row.description }} />
                                             </TableCell>
                                             <TableCell>
-                                                <Link href={`/astro/faq/update/${row.id}`} passHref>
+                                                <img style={{ maxWidth: '450px', height: 'auto' }} src={row.image_base64} alt={row.title} />
+                                            </TableCell>
+                                            <TableCell>
+                                                <Link href={`/astro/product/update/${row.id}`} passHref>
                                                     <Button variant="contained" color="success">
                                                         Edit
                                                     </Button>
@@ -119,7 +127,7 @@ const Content = () => {
                                             <TableCell>
                                                 <Button
                                                     onClick={() => {
-                                                        handleClick(row.id);
+                                                        handleClick(row.id, row.title);
                                                     }}
                                                     variant="contained"
                                                     color="error"
@@ -135,7 +143,7 @@ const Content = () => {
                                                     <DialogTitle id="alert-dialog-title">Delete this item?</DialogTitle>
                                                     <DialogContent>
                                                         <DialogContentText id="alert-dialog-description">
-                                                            Are you sure you want to delete FAQ item with the id of {deleteId}?
+                                                            Are you sure you want to delete Product item with the name of {deleteId.title}?
                                                         </DialogContentText>
                                                     </DialogContent>
                                                     <DialogActions>

@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router';
 import DashboardLayout from '@astro_layout';
-import Content from '@astro_components/faq/update';
+import Content from '@astro_components/product/update';
 
 const UpdateFaq = () => {
     const router = useRouter();
     return (
         <DashboardLayout
             pageProps={{
-                title: 'Edit FAQ',
+                title: 'Edit Products',
             }}
         >
             <Content routes={router} />

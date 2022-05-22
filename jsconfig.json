@@ -19,6 +19,12 @@
             "@components/*": [
                 "components/*"
             ],
+            "@helpers/*": [
+                "components/helpers/*"
+            ],
+            "@astro_plugins/*": [
+                "astro_components/plugins/*"
+            ],
         }
     }
 }

@@ -12,7 +12,7 @@ const Content = () => (
                     height: 240,
                 }}
             >
-                Test 1
+                Silahkan klik menu sebelah kiri untuk akses menu administrator
             </Paper>
         </Grid>
     </Grid>

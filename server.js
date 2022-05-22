@@ -14,6 +14,10 @@ const createFaq = require('./rest/astro/faq/create');
 const updateFaq = require('./rest/astro/faq/update');
 const deleteFaq = require('./rest/astro/faq/delete');
 
+const createProduct = require('./rest/astro/product/create');
+const updateProduct = require('./rest/astro/product/update');
+const deleteProduct = require('./rest/astro/product/delete');
+
 app.prepare().then(() => {
     const server = express();
 
@@ -28,6 +32,10 @@ app.prepare().then(() => {
     server.post('/api/astro/faq/create', createFaq);
     server.post('/api/astro/faq/update', updateFaq);
     server.post('/api/astro/faq/delete', deleteFaq);
+
+    server.post('/api/astro/product/create', createProduct);
+    server.post('/api/astro/product/update', updateProduct);
+    server.post('/api/astro/product/delete', deleteProduct);
 
     server.get('*', (req, res) => handle(req, res));
 

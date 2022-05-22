@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 import { baseUrl } from '@config';
 import * as Yup from 'yup';
 
+import DropFile from '@astro_plugins/DropFile';
+import { Typography } from 'node_modules/@mui/material/index';
 import TextField from '../../commons/Forms/TextField';
 
 const Update = (props) => {
@@ -20,13 +22,19 @@ const Update = (props) => {
 
     const FaqSchema = {
         title: Yup.string().required('Title is required.'),
+        short_description: Yup.string().required('Short Description is required'),
         description: Yup.string().required('Description is required'),
+        filename: Yup.string().required('Image cannot be empty'),
+        image_base64: Yup.string().required('Image cannot be empty'),
     };
 
     const initialValue = {
         id: routes.query.id,
         title: '',
+        short_description: '',
         description: '',
+        filename: '',
+        image_base64: '',
     };
 
     const formik = useFormik({
@@ -34,7 +42,7 @@ const Update = (props) => {
         validationSchema: Yup.object().shape(FaqSchema),
         onSubmit: async (values, { resetForm }) => {
             setLoading(true);
-            await fetch('/api/astro/faq/update', {
+            await fetch('/api/astro/product/update', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,7 +54,7 @@ const Update = (props) => {
                     setSuccess(true);
                     setLoading(false);
                     resetForm();
-                    router.push('/astro/faq');
+                    router.push('/astro/product');
                 })
                 .catch(() => {
                     setSuccess(false);
@@ -55,20 +63,36 @@ const Update = (props) => {
         },
     });
 
+    const handleDropFile = (files) => {
+        const fileName = files[0].file.name;
+        const { baseCode } = files[0];
+        formik.setFieldValue('filename', fileName);
+        formik.setFieldValue('image_base64', baseCode);
+    };
+
     const [descriptionInitialValue, setDescriptionInitialValue] = React.useState('');
     const [descriptionValue, setDescriptionValue] = React.useState('');
     const handleDescriptionChange = (value) => {
         setDescriptionValue(value);
     };
 
+    const [shortDescriptionInitialValue, setShortDescriptionInitialValue] = React.useState('');
+    const [shortDescriptionValue, setShortDescriptionValue] = React.useState('');
+    const handleShortDescriptionChange = (value) => {
+        setShortDescriptionValue(value);
+    };
+
     React.useEffect(() => {
         if (routes.query.id !== undefined) {
-            fetch(`/api/astro/faq/getSingleFaq/${routes.query.id}`)
+            fetch(`/api/astro/product/getSingleProduct/${routes.query.id}`)
                 .then((data) => data.json())
                 .then((results) => {
                     formik.setFieldValue('title', results.data[0].title);
+                    formik.setFieldValue('short_description', results.data[0].short_description);
                     formik.setFieldValue('description', results.data[0].description);
+                    formik.setFieldValue('image_base64', results.data[0].image_base64);
                     setDescriptionInitialValue(results.data[0].description);
+                    setShortDescriptionInitialValue(results.data[0].short_description);
                 })
                 .catch((err) => console.error('Error: ', err));
         }
@@ -81,6 +105,14 @@ const Update = (props) => {
     useEffect(() => {
         formik.setFieldValue('description', descriptionValue);
     }, [descriptionValue]);
+
+    useEffect(() => {
+        setShortDescriptionValue(shortDescriptionInitialValue ?? '');
+    }, [shortDescriptionInitialValue]);
+
+    useEffect(() => {
+        formik.setFieldValue('short_description', shortDescriptionValue);
+    }, [shortDescriptionValue]);
 
     const editorRef = useRef(null);
 
@@ -106,6 +138,26 @@ const Update = (props) => {
                             error={!!(formik.touched.title && formik.errors.title)}
                             errorMessage={(formik.touched.title && formik.errors.title) || null}
                         />
+                        <Typography>Short Description</Typography>
+                        <Editor
+                            tinymceScriptSrc={`${baseUrl}/tinymce//tinymce.min.js`}
+                            onInit={(evt, editor) => {
+                                editorRef.current = editor;
+                            }}
+                            initialValue={shortDescriptionInitialValue}
+                            value={shortDescriptionValue}
+                            onEditorChange={handleShortDescriptionChange}
+                            init={{
+                                height: 500,
+                                menubar: false,
+                                plugins: ['lists'],
+                                // eslint-disable-next-line max-len
+                                toolbar:
+                                    'undo redo | formatselect | bold italic | alignleft aligncenter | alignright alignjustify | bullist numlist ',
+                                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                            }}
+                        />
+                        <Typography>Description</Typography>
                         <Editor
                             tinymceScriptSrc={`${baseUrl}/tinymce//tinymce.min.js`}
                             onInit={(evt, editor) => {
@@ -123,6 +175,14 @@ const Update = (props) => {
                                     'undo redo | formatselect | bold italic | alignleft aligncenter | alignright alignjustify | bullist numlist ',
                                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
                             }}
+                        />
+                        <DropFile
+                            title="Product Image (MAX 500kb)"
+                            label="Product Image (MAX 500kb)"
+                            acceptedFile=".jpg,.jpeg,.png,.pdf,.gif"
+                            multiple={false}
+                            error={(formik.errors.filename && formik.touched.filename) || (formik.errors.image_base64 && formik.touched.image_base64)}
+                            getBase64={handleDropFile}
                         />
                         <Button type="submit" fullWidth disabled={loading} variant="contained">
                             {success ? 'Submitted!' : 'Submit'}
