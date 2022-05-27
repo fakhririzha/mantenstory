@@ -28,19 +28,26 @@ const Testimonials = () => {
         },
     });
 
-    const link = 'https://api.webscraping.ai/html';
-    const apiKey = '3b94f274-c505-4f1a-94d2-3194ac3c1a60';
+    // const apiKey = '5f397861-46ac-48b5-83d1-77a36e2d6ae6';
     const userName = 'mantenstory.co';
+    const url = `https://scrapers-proxy2.p.rapidapi.com/standard?url=https%3A%2F%2Fwww.instagram.com%2F${userName}%2F%3F__a%3D1`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Host': 'scrapers-proxy2.p.rapidapi.com',
+            'X-RapidAPI-Key': 'adc2d7c18fmshc34ef089a8899abp1618a4jsn01d3f579562c',
+        },
+    };
 
     const [instagramData, setInstagramData] = React.useState();
 
     React.useEffect(() => {
-        fetch(`${link}?api_key=${apiKey}&proxy=residential&url=https%3A%2F%2Fwww.instagram.com%2F${userName}%2F%3F__a%3D1&js=false`)
+        fetch(url, options)
             .then((results) => results.json())
             .then((data) => {
-                const filtered = data.graphql.user.edge_owner_to_timeline_media.edges.slice(0, 4);
-                console.log(filtered);
-                setInstagramData(filtered);
+                console.log(data);
+                // const filtered = data.graphql.user.edge_owner_to_timeline_media.edges.slice(0, 4);
+                // setInstagramData(filtered);
             });
     }, []);
 

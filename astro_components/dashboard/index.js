@@ -9,11 +9,15 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
+import LogoutIcon from '@mui/icons-material/Logout';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { useRouter } from 'next/router';
+import { removeIsLoginFlagging } from '@helpers/auth';
 import Layout from '../../components/Layout';
 import { mainListItems } from './listItems';
 
@@ -74,10 +78,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const Dashboard = (props) => {
     const { children, pageProps } = props;
     const [open, setOpen] = React.useState(true);
+
+    const router = useRouter();
+
     const toggleDrawer = () => {
         setOpen(!open);
     };
-
     return (
         <Layout
             pageProps={{
@@ -107,6 +113,15 @@ const Dashboard = (props) => {
                         <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
                             {pageProps.title ? pageProps.title : 'Dashboard'}
                         </Typography>
+                        <Button
+                            onClick={() => {
+                                removeIsLoginFlagging();
+                                router.push('/astro/login');
+                            }}
+                            color="inherit"
+                        >
+                            <LogoutIcon /> Logout
+                        </Button>
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open}>

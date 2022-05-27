@@ -18,6 +18,9 @@ const createProduct = require('./rest/astro/product/create');
 const updateProduct = require('./rest/astro/product/update');
 const deleteProduct = require('./rest/astro/product/delete');
 
+const checkLogin = require('./rest/astro/login/index');
+const updateLogin = require('./rest/astro/login/update');
+
 app.prepare().then(() => {
     const server = express();
 
@@ -37,10 +40,13 @@ app.prepare().then(() => {
     server.post('/api/astro/product/update', updateProduct);
     server.post('/api/astro/product/delete', deleteProduct);
 
+    server.post('/api/astro/login', checkLogin);
+    server.post('/api/astro/login/update', updateLogin);
+
     server.get('*', (req, res) => handle(req, res));
 
-    server.listen(3000, (err) => {
+    server.listen(3001, (err) => {
         if (err) throw err;
-        console.log('> Ready on http://localhost:3000');
+        console.log('> Ready on http://localhost:3001');
     });
 });

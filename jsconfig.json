@@ -25,6 +25,9 @@
             "@astro_plugins/*": [
                 "astro_components/plugins/*"
             ],
+            "@commons/*": [
+                "commons/*"
+            ],
         }
     }
 }

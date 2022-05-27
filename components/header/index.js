@@ -13,7 +13,6 @@ const Header = () => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'bottom',
             }}
-            bgClassName="test"
             strength={-300}
         >
             <div style={styles.headerParallax} />
