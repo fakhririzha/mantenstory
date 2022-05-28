@@ -19,7 +19,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useRouter } from 'next/router';
 import { removeIsLoginFlagging } from '@helpers/auth';
 import Layout from '../../components/Layout';
-import { mainListItems } from './listItems';
+import { homeListItems, mainListItems, secondaryListItems } from './listItems';
 
 const Copyright = (props) => (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -139,8 +139,11 @@ const Dashboard = (props) => {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
+                        {homeListItems}
+                        <Divider sx={{ my: 1 }} />
                         {mainListItems}
                         <Divider sx={{ my: 1 }} />
+                        {secondaryListItems}
                     </List>
                 </Drawer>
                 <Box

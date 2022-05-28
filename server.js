@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const next = require('next');
 const blocker = require('express-user-agent-blocker');
@@ -21,6 +22,10 @@ const deleteProduct = require('./rest/astro/product/delete');
 const checkLogin = require('./rest/astro/login/index');
 const updateLogin = require('./rest/astro/login/update');
 
+const createBlog = require('./rest/astro/blog/create');
+const updateBlog = require('./rest/astro/blog/update');
+const deleteBlog = require('./rest/astro/blog/delete');
+
 app.prepare().then(() => {
     const server = express();
 
@@ -42,6 +47,10 @@ app.prepare().then(() => {
 
     server.post('/api/astro/login', checkLogin);
     server.post('/api/astro/login/update', updateLogin);
+
+    server.post('/api/astro/blog/create', createBlog);
+    server.post('/api/astro/blog/update', updateBlog);
+    server.post('/api/astro/blog/delete', deleteBlog);
 
     server.get('*', (req, res) => handle(req, res));
 

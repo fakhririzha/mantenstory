@@ -11,6 +11,9 @@ import Typography from '@mui/material/Typography';
 import { encrypt } from '@helpers/encryption';
 import { setLogin } from '@helpers/auth';
 import { expiredToken } from '@config';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
 import Container from '@mui/material/Container';
 import { useFormik } from 'formik';
@@ -66,10 +69,13 @@ const Login = (props) => {
         validationSchema: Yup.object().shape(LoginSchema),
         onSubmit: async (values, { resetForm }) => {
             const formData = { ...values };
+            dayjs.extend(utc);
+            dayjs.extend(timezone);
+            dayjs.tz.setDefault('Asia/Jakarta');
             const data = {
                 username: formData.username,
                 password: encrypt(formData.password),
-                last_login: new Date().getTime(),
+                last_login: dayjs(new Date().getTime()).format('DD-MM-YYYY HH:mm:ss'),
             };
             await fetch('/api/astro/login/', {
                 method: 'post',
@@ -79,7 +85,7 @@ const Login = (props) => {
                 body: JSON.stringify(data),
             })
                 .then((response) => response.json())
-                .then(async (responseJson) => {
+                .then(async () => {
                     await fetch('/api/astro/login/update', {
                         method: 'post',
                         headers: {
