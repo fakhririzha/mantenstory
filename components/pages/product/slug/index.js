@@ -30,13 +30,15 @@ const SingleProduct = () => {
     const [productData, setProductData] = React.useState(null);
 
     React.useEffect(() => {
-        fetch(`/api/astro/product/getSingleProductByUrlKey/${stripHtmlTags(router.query.slug)}`)
-            .then((response) => response.json())
-            .then((product) => {
-                setProductData(product);
-            })
-            .catch((err) => console.error('Error: ', err));
-    }, []);
+        if (router.query.slug !== undefined) {
+            fetch(`/api/astro/product/getSingleProductByUrlKey/${stripHtmlTags(router.query.slug)}`)
+                .then((response) => response.json())
+                .then((product) => {
+                    setProductData(product);
+                })
+                .catch((err) => console.error('Error: ', err));
+        }
+    }, [router]);
 
     const styles = makeStyles();
 

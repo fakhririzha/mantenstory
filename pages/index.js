@@ -1,6 +1,9 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable max-len */
 /* eslint-disable import/extensions */
 import * as React from 'react';
+import Fab from '@mui/material/Fab';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import Layout from '../components/Layout';
 import Navbar from '../components/navbar';
 import Header from '../components/header';
@@ -9,21 +12,40 @@ import HowToOrder from '../components/howtoorder';
 import Testimonials from '../components/testimonials';
 import Footer from '../components/footer';
 
-const Index = ({ feed }) => (
-    <Layout
-        pageProps={{
-            title: 'Mantenstory.co',
-            description: 'Mantenstory.co is a leading provider of quality, affordable, and reliable wedding planning services.',
-        }}
-    >
-        <Navbar />
-        <Header />
-        <Main />
-        <HowToOrder />
-        <Testimonials feed={feed} />
-        <Footer />
-    </Layout>
-);
+const Index = (props) => {
+    const { feed } = props;
+
+    return (
+        <Layout
+            pageProps={{
+                title: 'Mantenstory.co',
+                description: 'Mantenstory.co is a leading provider of quality, affordable, and reliable wedding planning services.',
+            }}
+        >
+            <Navbar />
+            <Header />
+            <Main />
+            <HowToOrder />
+            <Testimonials feed={feed} />
+            <Fab
+                href="https://wa.link/4nh9ic"
+                color="primary"
+                aria-label="add"
+                sx={{
+                    margin: 0,
+                    top: 'auto',
+                    right: 20,
+                    bottom: 20,
+                    left: 'auto',
+                    position: 'fixed',
+                }}
+            >
+                <WhatsAppIcon />
+            </Fab>
+            <Footer />
+        </Layout>
+    );
+};
 
 export const getServerSideProps = async () => {
     // const long_url =
@@ -31,13 +53,9 @@ export const getServerSideProps = async () => {
     // const long_data = await fetch(long_url);
     // const long_token = await long_data.json();
 
-    const url =
-        'https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink,thumbnail_url&access_token=IGQVJVZAmUzSjYyUUhPMTFhRXZAxUzJUSERpbVVVdk1JalBQSDNVd19xSjJ1Q0lMZAmhQQ2F2ZAFg5d21HOHd4ZAWRPekY3M081bHJvM1c2ODlIa2p3cHY2ZATh3TTVoRWg0WDhidEltbzdEdW5wX2pxYUl1egZDZD';
+    const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink,thumbnail_url&access_token=${process.env.INSTAGRAM_API_KEY}`;
     const data = await fetch(url);
     const feed = await data.json();
-
-    // console.log(long_token);
-    console.log(feed);
 
     return {
         props: {

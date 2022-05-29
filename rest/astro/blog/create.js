@@ -11,11 +11,11 @@ const handler = async (req, res) => {
 
     db.connect();
 
-    const url_key = req.body.title.split(' ');
+    const url_key = req.body.title.replaceAll(' ', '-');
 
     const data = {
         title: req.body.title,
-        url_key: url_key[0].toString().toLowerCase(),
+        url_key: url_key.toString().toLowerCase(),
         description: req.body.description,
         image_base64: req.body.image_base64,
         timestamp: req.body.timestamp,

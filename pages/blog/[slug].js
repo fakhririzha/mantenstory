@@ -1,21 +1,38 @@
 /* eslint-disable import/extensions */
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import Navbar from '../../components/navbar';
-import SimpleArticle from '../../components/pages/blog/slug';
-import Footer from '../../components/footer';
-
-import stripHtmlTags from '../../components/helpers/stripHtmlTags';
+import Layout from '@components/Layout';
+import Navbar from '@components/navbar';
+import SingleBlog from '@components/pages/blog/slug';
+import Footer from '@components/footer';
+import { baseUrl } from '@config';
 
 const Slug = () => {
     const router = useRouter();
+    const [blogData, setBlogData] = React.useState(null);
+
+    React.useEffect(() => {
+        if (router.query.slug !== undefined) {
+            fetch(`${baseUrl}/api/astro/blog/getSingleBlogByUrlKey/${router.query.slug}`)
+                .then((response) => response.json())
+                .then((blog) => {
+                    setBlogData(blog);
+                })
+                .catch((err) => console.error('Error: ', err));
+        }
+    }, [router]);
 
     return (
-        <>
+        <Layout
+            pageProps={{
+                title: blogData && blogData.data ? blogData.data[0].title : 'Blog',
+                description: blogData && blogData.data ? blogData.data[0].description.substr(0, 50) : 'Mantenstory.co blog',
+            }}
+        >
             <Navbar />
-            {stripHtmlTags(router.query.slug) === 'test' && <SimpleArticle />}
+            <SingleBlog />
             <Footer />
-        </>
+        </Layout>
     );
 };
 

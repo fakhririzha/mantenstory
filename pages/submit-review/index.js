@@ -2,14 +2,14 @@
 import * as React from 'react';
 import Layout from '@components/Layout';
 import Navbar from '@components/navbar';
-import Main from '@components/pages/blog';
+import Main from '@components/pages/submit-review';
 import Footer from '@components/footer';
 
-const Blog = () => (
+const Slug = () => (
     <Layout
         pageProps={{
-            title: 'Blog',
-            description: 'Mantenstory.co blog',
+            title: 'Submit Review',
+            description: 'Submit Review on Mantenstory.co',
         }}
     >
         <Navbar />
@@ -18,4 +18,4 @@ const Blog = () => (
     </Layout>
 );
 
-export default Blog;
+export default Slug;

@@ -13,8 +13,8 @@ const handler = async (req, res) => {
     db.connect();
 
     db.query(
-        'UPDATE products SET title = ?, short_description = ?, description = ?, image_base64 = ? WHERE id = ?',
-        [req.body.title, req.body.short_description, req.body.description, req.body.image_base64, req.body.id],
+        'UPDATE blog SET title = ?, url_key = ?, description = ?, image_base64 = ? WHERE id = ?',
+        [req.body.title, req.body.title.replaceAll(' ', '-').toString().toLowerCase(), req.body.description, req.body.image_base64, req.body.id],
         (error, results) => {
             if (error) {
                 res.status(500).end();

@@ -22,7 +22,7 @@ const styles = () => {
             textAlign: 'center',
         },
         gridRow: {
-            paddingBottom: '3rem',
+            paddingBottom: '0',
         },
         gridRowFirst: {
             paddingBottom: '0',

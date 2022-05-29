@@ -4,7 +4,7 @@ import { getLoginInfo } from '@components/helpers/auth';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import DashboardLayout from '@astro_layout';
-import Content from '@astro_components/heaedr/update';
+import Content from '@astro_components/header/update';
 
 const Update = () => {
     const router = useRouter();

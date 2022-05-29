@@ -10,6 +10,9 @@ const styles = () => {
                 marginTop: '10rem',
             },
         },
+        showcaseImage: {
+            width: '864px',
+        },
         showcaseOneWrapper: {
             [theme.breakpoints.between('lg', 'xl')]: {
                 marginLeft: '5rem',
@@ -23,7 +26,7 @@ const styles = () => {
         showcaseOneDescription: {
             [theme.breakpoints.between('lg', 'xl')]: {
                 position: 'relative',
-                bottom: '55vh',
+                bottom: '60vh',
                 left: '42.5vw',
                 width: '40vw',
                 backgroundColor: theme.palette.primaryCard.main,
@@ -47,9 +50,12 @@ const styles = () => {
             color: theme.palette.secondary.main,
         },
         showcaseTwo: {
+            [theme.breakpoints.between('lg', 'xl')]: {
+                left: '20vw',
+            },
             position: 'relative',
             maxWidth: '60%',
-            left: '31.5vw',
+            left: '35vw',
         },
         showcaseTwoWrapper: {
             [theme.breakpoints.between('lg', 'xl')]: {
@@ -62,13 +68,13 @@ const styles = () => {
         showcaseTwoDescription: {
             [theme.breakpoints.between('lg', 'xl')]: {
                 position: 'relative',
-                bottom: '55vh',
+                bottom: '58vh',
                 width: '40vw',
                 backgroundColor: theme.palette.primaryCard.main,
                 padding: '2.5rem',
             },
             position: 'relative',
-            bottom: '50vh',
+            bottom: '48vh',
             width: '40vw',
             backgroundColor: theme.palette.primaryCard.main,
             padding: '5rem',

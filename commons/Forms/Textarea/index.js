@@ -1,12 +1,10 @@
 import * as React from 'react';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import useStyles from './styles';
 
-const SelectField = ({
-    options = [],
+const Textarea = ({
     name = '',
     disabled = false,
     onChange = () => {},
@@ -25,16 +23,14 @@ const SelectField = ({
             <FormControl disabled={disabled} fullWidth={fullWidth} error={error} variant={variant}>
                 <TextField
                     id={name}
-                    select
                     label={label}
                     name={name}
                     value={value}
                     onChange={onChange}
                     fullWidth
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    placeholder="Select an item"
+                    multiline
+                    minRows={3}
+                    placeholder="Insert Review"
                     error={error}
                     helperText={
                         error && (
@@ -44,19 +40,10 @@ const SelectField = ({
                         )
                     }
                     {...other}
-                >
-                    <MenuItem disabled selected>
-                        Select an item...
-                    </MenuItem>
-                    {options.data.map((option) => (
-                        <MenuItem key={option.id} value={option.id}>
-                            {option.name}
-                        </MenuItem>
-                    ))}
-                </TextField>
+                />
             </FormControl>
         </div>
     );
 };
 
-export default SelectField;
+export default Textarea;

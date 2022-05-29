@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable max-len */
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -9,15 +10,11 @@ import MuiButton from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Link from 'next/link';
 import Typography from '@mui/material/Typography';
-import Image from 'next/image';
 import 'animate.css';
 import Fade from 'react-reveal/Fade';
 
 import { alpha, styled } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
-import showcaseOne from '../../../assets/img/showcase-1.png';
-import showcaseTwo from '../../../assets/img/showcase-2.png';
 
 import makeStyles from './styles';
 
@@ -31,95 +28,96 @@ const Button = styled((props) => <MuiButton {...props} />)(({ theme }) => ({
 }));
 
 const Main = () => {
+    const [categoryData, setCategoryData] = React.useState(null);
     const styles = makeStyles();
 
     const matchesMobile = useMediaQuery('(min-width:0px) and (max-width:719px)');
     const matchesDesktop = useMediaQuery('(min-width:1200px)');
 
+    React.useEffect(() => {
+        fetch('/api/astro/category')
+            .then((data) => data.json())
+            .then((results) => {
+                setCategoryData(results);
+            })
+            .catch((err) => console.error('Error: ', err));
+    }, []);
+
     return (
         <Box sx={styles.showcaseBox}>
-            {matchesDesktop && (
-                <>
-                    <Fade right>
-                        <Box sx={styles.showcaseOneWrapper}>
-                            <Box sx={styles.showcaseOne}>
-                                <Image src={showcaseOne} alt="logo" />
+            {matchesDesktop &&
+                categoryData &&
+                categoryData.data &&
+                categoryData.data.map((item, index) => {
+                    if (index % 2 === 0) {
+                        return (
+                            <Fade right key={index}>
+                                <Box sx={styles.showcaseOneWrapper}>
+                                    <Box sx={styles.showcaseOne}>
+                                        <img src={item.image_base64} alt={item.name} style={styles.showcaseImage} />
+                                    </Box>
+                                    <Box sx={styles.showcaseOneDescription}>
+                                        <Typography sx={styles.showcaseOneDescTitle}>{item.name}</Typography>
+                                        <Typography sx={styles.showcaseOneDescContent}>
+                                            <div dangerouslySetInnerHTML={{ __html: item.short_description }} />
+                                        </Typography>
+                                        <Link href={`/product-list/${item.url_key}`} passHref>
+                                            <Button sx={styles.actionButton} color="primaryCard" disableElevation>
+                                                See Catalogue
+                                            </Button>
+                                        </Link>
+                                    </Box>
+                                </Box>
+                            </Fade>
+                        );
+                    }
+                    return (
+                        <Fade left key={index}>
+                            <Box sx={styles.showcaseTwoWrapper}>
+                                <Box sx={styles.showcaseTwo}>
+                                    <img src={item.image_base64} alt={item.name} style={styles.showcaseImage} />
+                                </Box>
+                                <Box sx={styles.showcaseTwoDescription}>
+                                    <Typography sx={styles.showcaseTwoDescTitle}>{item.name}</Typography>
+                                    <Typography sx={styles.showcaseTwoDescContent}>
+                                        <div dangerouslySetInnerHTML={{ __html: item.short_description }} />
+                                    </Typography>
+                                    <Link href={`/product-list/${item.url_key}`} passHref>
+                                        <Button sx={styles.actionButton} color="primaryCard" disableElevation>
+                                            See Catalogue
+                                        </Button>
+                                    </Link>
+                                </Box>
                             </Box>
-                            <Box sx={styles.showcaseOneDescription}>
-                                <Typography sx={styles.showcaseOneDescTitle}>Wedding Invitation Card</Typography>
-                                <Typography sx={styles.showcaseOneDescContent}>
-                                    Browse the gallery and choose an invitation style that fits your theme. Each design is ready for your
-                                    customisation and comes with optional matching RSVP cards and information cards.
-                                </Typography>
-                                <Button sx={styles.actionButton} color="primaryCard" disableElevation>
-                                    See Catalogue
-                                </Button>
-                            </Box>
-                        </Box>
-                    </Fade>
-                    <Fade left>
-                        <Box sx={styles.showcaseTwoWrapper}>
-                            <Box sx={styles.showcaseTwo}>
-                                <Image src={showcaseTwo} alt="logo" />
-                            </Box>
-                            <Box sx={styles.showcaseTwoDescription}>
-                                <Typography sx={styles.showcaseTwoDescTitle}>Wedding Souvenir</Typography>
-                                <Typography sx={styles.showcaseTwoDescContent}>
-                                    Browse the gallery and choose an invitation style that fits your theme. Each design is ready for your
-                                    customisation and comes with optional matching RSVP cards and information cards.
-                                </Typography>
-                                <Button sx={styles.actionButton} color="primaryCard" disableElevation>
-                                    See Catalogue
-                                </Button>
-                            </Box>
-                        </Box>
-                    </Fade>
-                </>
-            )}
+                        </Fade>
+                    );
+                })}
             {matchesMobile && (
                 <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <Card>
-                            <CardMedia component="img" height="140" image="/static/assets/img/showcase-1.png" />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    Wedding Invitation Card
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Browse the gallery and choose an invitation style that fits your theme. Each design is ready for your
-                                    customisation and comes with optional matching RSVP cards and information cards.
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={styles.cardActions}>
-                                <Link href="/product" passHref>
-                                    <Button variant="contained" size="small" color="primaryCard" sx={{ minWidth: '100%' }}>
-                                        See Catalogue
-                                    </Button>
-                                </Link>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Card>
-                            <CardMedia component="img" height="140" image="/static/assets/img/showcase-2.png" />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    Wedding Souvenir
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    Browse the gallery and choose an invitation style that fits your theme. Each design is ready for your
-                                    customisation and comes with optional matching RSVP cards and information cards.
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={styles.cardActions}>
-                                <Link href="/product" passHref>
-                                    <Button variant="contained" size="small" color="primaryCard" sx={{ minWidth: '100%' }}>
-                                        See Catalogue
-                                    </Button>
-                                </Link>
-                            </CardActions>
-                        </Card>
-                    </Grid>
+                    {categoryData &&
+                        categoryData.data &&
+                        categoryData.data.map((item) => (
+                            <Grid item xs={12}>
+                                <Card>
+                                    <CardMedia component="img" height="140" src={item.image_base64} />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {item.name}
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            {item.short_description}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions sx={styles.cardActions}>
+                                        <Link href={`/product-list/${item.url_key}`} passHref>
+                                            <Button variant="contained" size="small" color="primaryCard" sx={{ minWidth: '100%' }}>
+                                                See Catalogue
+                                            </Button>
+                                        </Link>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        ))}
                 </Grid>
             )}
         </Box>
