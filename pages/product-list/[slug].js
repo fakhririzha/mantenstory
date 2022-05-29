@@ -3,7 +3,6 @@ import * as React from 'react';
 import Layout from '@components/Layout';
 import Main from '@components/pages/product-list';
 import { useRouter } from 'next/router';
-import { baseUrl } from '@config';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 
@@ -13,7 +12,7 @@ const Slug = () => {
 
     React.useEffect(() => {
         if (router.query.slug !== undefined) {
-            fetch(`${baseUrl}/api/astro/category/getSingleCategoryBySlug/${router.query.slug}`)
+            fetch(`/api/astro/category/getSingleCategoryBySlug/${router.query.slug}`)
                 .then((response) => response.json())
                 .then((product) => {
                     setCategoryData(product);

@@ -5,7 +5,6 @@ import Layout from '@components/Layout';
 import Navbar from '@components/navbar';
 import SingleBlog from '@components/pages/blog/slug';
 import Footer from '@components/footer';
-import { baseUrl } from '@config';
 
 const Slug = () => {
     const router = useRouter();
@@ -13,7 +12,7 @@ const Slug = () => {
 
     React.useEffect(() => {
         if (router.query.slug !== undefined) {
-            fetch(`${baseUrl}/api/astro/blog/getSingleBlogByUrlKey/${router.query.slug}`)
+            fetch(`/api/astro/blog/getSingleBlogByUrlKey/${router.query.slug}`)
                 .then((response) => response.json())
                 .then((blog) => {
                     setBlogData(blog);

@@ -4,7 +4,6 @@ import Layout from '@components/Layout';
 import SingleProduct from '@components/pages/product/slug';
 import stripHtmlTags from '@components/helpers/stripHtmlTags';
 import { useRouter } from 'next/router';
-import { baseUrl } from '@config';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 
@@ -14,7 +13,7 @@ const Slug = () => {
 
     React.useEffect(() => {
         if (router.query.slug !== undefined) {
-            fetch(`${baseUrl}/api/astro/product/getSingleProductByUrlKey/${stripHtmlTags(router.query.slug)}`)
+            fetch(`/api/astro/product/getSingleProductByUrlKey/${stripHtmlTags(router.query.slug)}`)
                 .then((response) => response.json())
                 .then((product) => {
                     setProductData(product);

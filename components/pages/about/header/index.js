@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import { baseUrl } from '@config';
 
 import makeStyles from './styles';
 
@@ -18,7 +17,7 @@ const Header = () => {
     const [aboutData, setAboutData] = React.useState(null);
 
     React.useEffect(() => {
-        fetch(`${baseUrl}/api/astro/about`)
+        fetch('/api/astro/about')
             .then((response) => response.json())
             .then((about) => {
                 setAboutData(about);

@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
-import { baseUrl } from '@config';
 import Showcase from './showcase';
 
 import makeStyles from './styles';
@@ -17,7 +16,7 @@ const Product = () => {
 
     React.useEffect(() => {
         if (router.query.slug !== undefined) {
-            fetch(`${baseUrl}/api/astro/category/getSingleCategoryBySlug/${router.query.slug}`)
+            fetch(`/api/astro/category/getSingleCategoryBySlug/${router.query.slug}`)
                 .then((response) => response.json())
                 .then((product) => {
                     setCategoryData(product);
