@@ -96,7 +96,6 @@ const Testimonials = () => {
         )
             .then((response) => response.json())
             .then((feed) => {
-                console.log(feed);
                 setInstagramData(feed.data);
             });
     }, []);

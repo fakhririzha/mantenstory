@@ -13,7 +13,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { baseUrl } from '@config';
 import Typography from '@mui/material/Typography';
 
 import Fade from 'react-reveal/Fade';
@@ -34,7 +33,7 @@ const Main = () => {
 
     React.useEffect(() => {
         if (router.query.slug !== undefined) {
-            fetch(`${baseUrl}/api/astro/category/getSingleCategoryBySlug/${router.query.slug}`)
+            fetch(`/api/astro/category/getSingleCategoryBySlug/${router.query.slug}`)
                 .then((response) => response.json())
                 .then((product) => {
                     setCategoryData(product);

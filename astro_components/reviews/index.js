@@ -127,15 +127,13 @@ const Content = () => {
                                             <TableCell>
                                                 {(row.status === 'pending' && (
                                                     <Link href={`/astro/reviews/update/${row.id}`} passHref>
-                                                        {/* <Link href="/astro/about/update/" passHref> */}
                                                         <Button variant="contained" color="success">
                                                             Approve
                                                         </Button>
                                                     </Link>
                                                 )) || (
                                                     <Link href={`/astro/reviews/update/${row.id}`} passHref>
-                                                        {/* <Link href="/astro/about/update/" passHref> */}
-                                                        <Button variant="contained" color="disabled">
+                                                        <Button variant="contained" color="success" disabled>
                                                             Approve
                                                         </Button>
                                                     </Link>

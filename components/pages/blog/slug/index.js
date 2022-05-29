@@ -7,7 +7,6 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { useRouter } from 'next/router';
-import { baseUrl } from '@config';
 
 import makeStyles from './styles';
 
@@ -23,7 +22,7 @@ const Header = () => {
 
     React.useEffect(() => {
         if (router.query.slug !== undefined) {
-            fetch(`${baseUrl}/api/astro/blog/getSingleBlogByUrlKey/${router.query.slug}`)
+            fetch(`/api/astro/blog/getSingleBlogByUrlKey/${router.query.slug}`)
                 .then((response) => response.json())
                 .then((blog) => {
                     setBlogData(blog);
