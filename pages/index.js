@@ -4,13 +4,13 @@
 import * as React from 'react';
 import Fab from '@mui/material/Fab';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import Layout from '../components/Layout';
-import Navbar from '../components/navbar';
-import Header from '../components/header';
-import Main from '../components/main';
-import HowToOrder from '../components/howtoorder';
-import Testimonials from '../components/testimonials';
-import Footer from '../components/footer';
+import Layout from '@components/Layout';
+import Navbar from '@components/navbar';
+import Header from '@components/header';
+import Main from '@components/main';
+import HowToOrder from '@components/howtoorder';
+import Testimonials from '@components/testimonials';
+import Footer from '@components/footer';
 
 const Index = (props) => {
     const { feed } = props;
@@ -53,7 +53,9 @@ export const getServerSideProps = async () => {
     // const long_data = await fetch(long_url);
     // const long_token = await long_data.json();
 
-    const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink,thumbnail_url&access_token=${process.env.INSTAGRAM_API_KEY}`;
+    // eslint-disable-next-line quotes
+    const url =
+        'https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink,thumbnail_url&access_token=IGQVJVRzVfOW5NcDRERFhPS0VUeUQwaWkyamxzVl8zajBjd0xBVGhEaWdhTU5fMzZAGUjRlVGg2WGJweEQwcWVZATTJoT043OE1hemRyNzJBWFFicjBPRmljaElEY0hySTdyaFc4VnRoWmYzMGdiMXZAacAZDZD';
     const data = await fetch(url);
     const feed = await data.json();
 

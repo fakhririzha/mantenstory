@@ -108,12 +108,6 @@ const Testimonials = (props) => {
     }, [feed]);
 
     React.useEffect(() => {
-        if (instagramData && instagramData.length > 0) {
-            console.log(instagramData);
-        }
-    }, [instagramData]);
-
-    React.useEffect(() => {
         fetch('/api/astro/reviews/accepted')
             .then((data) => data.json())
             .then((results) => {
