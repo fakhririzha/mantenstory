@@ -15,6 +15,7 @@ const handler = async (req, res) => {
 
     const data = {
         title: req.body.title,
+        category_id: req.body.category_id,
         url_key: url_key[0].toString().toLowerCase(),
         short_description: req.body.short_description,
         description: req.body.description,

@@ -33,7 +33,6 @@ const Main = () => {
             .then((data) => data.json())
             .then((results) => {
                 setProductData(results);
-                console.log(results);
             })
             .catch((err) => console.error('Error: ', err));
     }, []);

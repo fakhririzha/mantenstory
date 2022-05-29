@@ -1,8 +1,12 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable operator-linebreak */
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable max-len */
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +17,13 @@ import 'keen-slider/keen-slider.min.css';
 
 import makeStyles from './styles';
 
-const Testimonials = () => {
+const Testimonials = (props) => {
+    const { feed } = props;
+
+    const [currentSlide, setCurrentSlide] = React.useState(0);
+    const [reviewsData, setReviewsData] = React.useState({});
+    const [loaded, setLoaded] = React.useState(false);
+
     const styles = makeStyles();
 
     const [refCallback] = useKeenSlider({
@@ -25,23 +35,91 @@ const Testimonials = () => {
         },
         slides: {
             perView: 2,
+            spacing: 16,
         },
     });
 
-    const link = 'https://api.webscraping.ai/html';
-    const apiKey = '3b94f274-c505-4f1a-94d2-3194ac3c1a60';
-    const userName = 'mantenstory.co';
+    const [refInstagram, instagramRef] = useKeenSlider(
+        {
+            loop: true,
+            breakpoints: {
+                '(max-width:719px)': {
+                    slides: { perView: 1 },
+                },
+            },
+            slides: {
+                perView: 4,
+            },
+            slideChanged(slider) {
+                setCurrentSlide(slider.track.details.rel);
+            },
+            created() {
+                setLoaded(true);
+            },
+            renderMode: 'performance',
+        },
+        [
+            (slider) => {
+                let timeout;
+                let mouseOver = false;
+                function clearNextTimeout() {
+                    clearTimeout(timeout);
+                }
+                function nextTimeout() {
+                    clearTimeout(timeout);
+                    if (mouseOver) return;
+                    timeout = setTimeout(() => {
+                        slider.next();
+                    }, 4000);
+                }
+                slider.on('created', () => {
+                    slider.container.addEventListener('mouseover', () => {
+                        mouseOver = true;
+                        clearNextTimeout();
+                    });
+                    slider.container.addEventListener('mouseout', () => {
+                        mouseOver = false;
+                        nextTimeout();
+                    });
+                    nextTimeout();
+                });
+                slider.on('dragStarted', clearNextTimeout);
+                slider.on('animationEnded', nextTimeout);
+                slider.on('updated', nextTimeout);
+            },
+        ]
+    );
 
     const [instagramData, setInstagramData] = React.useState();
 
     React.useEffect(() => {
-        fetch(`${link}?api_key=${apiKey}&proxy=residential&url=https%3A%2F%2Fwww.instagram.com%2F${userName}%2F%3F__a%3D1&js=false`)
-            .then((results) => results.json())
-            .then((data) => {
-                const filtered = data.graphql.user.edge_owner_to_timeline_media.edges.slice(0, 4);
-                console.log(filtered);
-                setInstagramData(filtered);
-            });
+        if (feed && feed.data && feed.data.length > 0) {
+            const data = feed.data.map((item) => ({
+                id: item.id,
+                caption: item.caption,
+                media_url: item.media_url,
+                timestamp: item.timestamp,
+                media_type: item.media_type,
+                permalink: item.permalink,
+            }));
+
+            setInstagramData(data);
+        }
+    }, [feed]);
+
+    React.useEffect(() => {
+        if (instagramData && instagramData.length > 0) {
+            console.log(instagramData);
+        }
+    }, [instagramData]);
+
+    React.useEffect(() => {
+        fetch('/api/astro/reviews/accepted')
+            .then((data) => data.json())
+            .then((results) => {
+                setReviewsData(results);
+            })
+            .catch((err) => console.error('Error: ', err));
     }, []);
 
     return (
@@ -50,82 +128,90 @@ const Testimonials = () => {
                 <Typography sx={styles.title}>What They Said ?</Typography>
             </Box>
             <Box sx={styles.contentWrapper}>
-                <div ref={refCallback} className="keen-slider">
-                    <div className="keen-slider__slide">
-                        <Box sx={styles.testimonialItem}>
-                            <Typography sx={styles.bigComma}>&ldquo;</Typography>
-                            <Typography sx={styles.testimonialItem__text}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </Typography>
-                            <Typography sx={styles.testimonialItem__people}>- Customer Name -</Typography>
-                        </Box>
+                {reviewsData && reviewsData.data && (
+                    <div ref={refCallback} className="keen-slider">
+                        {reviewsData.data.map((review, index) => (
+                            <div className="keen-slider__slide" key={index}>
+                                <Box sx={styles.testimonialItem}>
+                                    <Typography sx={styles.bigComma}>&ldquo;</Typography>
+                                    <Typography sx={styles.testimonialItem__text}>{review.caption}</Typography>
+                                    <Typography sx={styles.testimonialItem__people}>- {review.customer_name} -</Typography>
+                                </Box>
+                            </div>
+                        ))}
                     </div>
-                    <div className="keen-slider__slide">
-                        <Box sx={styles.testimonialItem}>
-                            <Typography sx={styles.bigComma}>&ldquo;</Typography>
-                            <Typography sx={styles.testimonialItem__text}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </Typography>
-                            <Typography sx={styles.testimonialItem__people}>- Customer Name -</Typography>
-                        </Box>
-                    </div>
-                    <div className="keen-slider__slide">
-                        <Box sx={styles.testimonialItem}>
-                            <Typography sx={styles.bigComma}>&ldquo;</Typography>
-                            <Typography sx={styles.testimonialItem__text}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </Typography>
-                            <Typography sx={styles.testimonialItem__people}>- Customer Name -</Typography>
-                        </Box>
-                    </div>
-                    <div className="keen-slider__slide">
-                        <Box sx={styles.testimonialItem}>
-                            <Typography sx={styles.bigComma}>&ldquo;</Typography>
-                            <Typography sx={styles.testimonialItem__text}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </Typography>
-                            <Typography sx={styles.testimonialItem__people}>- Customer Name -</Typography>
-                        </Box>
-                    </div>
-                    <div className="keen-slider__slide">
-                        <Box sx={styles.testimonialItem}>
-                            <Typography sx={styles.bigComma}>&ldquo;</Typography>
-                            <Typography sx={styles.testimonialItem__text}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </Typography>
-                            <Typography sx={styles.testimonialItem__people}>- Customer Name -</Typography>
-                        </Box>
-                    </div>
-                    <div className="keen-slider__slide">
-                        <Box sx={styles.testimonialItem}>
-                            <Typography sx={styles.bigComma}>&ldquo;</Typography>
-                            <Typography sx={styles.testimonialItem__text}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </Typography>
-                            <Typography sx={styles.testimonialItem__people}>- Customer Name -</Typography>
-                        </Box>
-                    </div>
-                </div>
+                )}
+                <Box sx={{ textAlign: 'center', marginTop: '2.5rem  ' }}>
+                    <Link href="/submit-review" passHref>
+                        <Button variant="contained">Submit Review</Button>
+                    </Link>
+                </Box>
             </Box>
             {instagramData && (
                 <Box sx={styles.exampleWrapper}>
                     <Box sx={styles.titleWrapperInstagram}>
                         <Typography sx={styles.title}>Latest Instagram Post</Typography>
                     </Box>
-                    <Grid container maxWidth="xl" spacing={2}>
-                        {instagramData.map((item) => (
-                            <Grid item xs={12} md={6} lg={3} sx={styles.igFeedWrapper}>
-                                <Link href={`https://instagram.com/p/${item.node.shortcode}`} target="_blank" passHref>
-                                    <Image
-                                        src={item.node.thumbnail_resources[3].src.replace(/^[^.]*/, 'https://scontent-atl3-2')}
-                                        alt={item.node.shortcode}
-                                        width="480"
-                                        height="480"
-                                    />
-                                </Link>
-                            </Grid>
-                        ))}
-                    </Grid>
+                    <Box sx={styles.contentWrapper}>
+                        <div ref={refInstagram} className="keen-slider">
+                            {instagramData.map((item, index) => (
+                                <div className="keen-slider__slide" key={index}>
+                                    <Link href={item.permalink} target="_blank" passHref>
+                                        <Image
+                                            src={item.media_url.replace(/^[^.]*/, 'https://scontent-atl3-2')}
+                                            alt="Instagram_Post"
+                                            width="320"
+                                            height="320"
+                                        />
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
+                    </Box>
+                    {loaded && instagramRef.current && instagramRef.current.track && instagramRef.current.track.details && (
+                        <div className="dots">
+                            {[...Array(instagramRef.current.track.details.slides.length - 1).keys()].map((idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => {
+                                        // eslint-disable-next-line no-unused-expressions
+                                        instagramRef.current?.moveToIdx(idx);
+                                    }}
+                                    type="button"
+                                    // eslint-disable-next-line no-undef
+                                    className={`dot${currentSlide === idx ? ' active' : ''}`}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    <style jsx>
+                        {`
+                            .dots {
+                                display: flex;
+                                padding: 10px 0;
+                                justify-content: center;
+                            }
+
+                            .dot {
+                                border: none;
+                                width: 10px;
+                                height: 10px;
+                                background: #c5c5c5;
+                                border-radius: 50%;
+                                margin: 0 5px;
+                                padding: 5px;
+                                cursor: pointer;
+                            }
+
+                            .dot:focus {
+                                outline: none;
+                            }
+
+                            .dot.active {
+                                background: #000;
+                            }
+                        `}
+                    </style>
                 </Box>
             )}
         </Container>

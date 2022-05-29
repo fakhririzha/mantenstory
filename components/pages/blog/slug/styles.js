@@ -24,6 +24,9 @@ const styles = () => {
             color: theme.palette.secondary.main,
             padding: '1rem 1rem',
         },
+        blogImage: {
+            textAlign: 'center',
+        },
         descriptionLocation: {
             fontSize: '18px',
             fontStyle: 'italic',
@@ -34,7 +37,7 @@ const styles = () => {
             maxWidth: '100%',
             height: '2px',
             borderTop: '1px solid #707070',
-            paddingBottom: '5rem',
+            paddingBottom: '1rem',
         },
         googleMap: {
             border: '0',

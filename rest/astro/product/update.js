@@ -13,8 +13,8 @@ module.exports = async function handler(req, res) {
     db.connect();
 
     db.query(
-        'UPDATE products SET title = ?, short_description = ?, description = ?, image_base64 = ? WHERE id = ?',
-        [req.body.title, req.body.short_description, req.body.description, req.body.image_base64, req.body.id],
+        'UPDATE products SET title = ?, category_id = ?, short_description = ?, description = ?, image_base64 = ? WHERE id = ?',
+        [req.body.title, req.body.category_id, req.body.short_description, req.body.description, req.body.image_base64, req.body.id],
         (error, results) => {
             if (error) {
                 res.status(500).end();

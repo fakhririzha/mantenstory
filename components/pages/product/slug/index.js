@@ -8,7 +8,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import stripHtmlTags from '@components/helpers/stripHtmlTags';
-import platinumHeader from '../../../../assets/img/platinum-header.png';
 
 import productOne from '../../../../assets/img/gambar-produk-1.png';
 import productTwo from '../../../../assets/img/gambar-produk-2.png';
@@ -31,13 +30,15 @@ const SingleProduct = () => {
     const [productData, setProductData] = React.useState(null);
 
     React.useEffect(() => {
-        fetch(`/api/astro/product/getSingleProductByUrlKey/${stripHtmlTags(router.query.slug)}`)
-            .then((response) => response.json())
-            .then((product) => {
-                setProductData(product);
-            })
-            .catch((err) => console.error('Error: ', err));
-    }, []);
+        if (router.query.slug !== undefined) {
+            fetch(`/api/astro/product/getSingleProductByUrlKey/${stripHtmlTags(router.query.slug)}`)
+                .then((response) => response.json())
+                .then((product) => {
+                    setProductData(product);
+                })
+                .catch((err) => console.error('Error: ', err));
+        }
+    }, [router]);
 
     const styles = makeStyles();
 

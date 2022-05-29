@@ -97,6 +97,7 @@ const Content = () => {
                                     <TableRow>
                                         <TableCell>No.</TableCell>
                                         <TableCell>Title</TableCell>
+                                        <TableCell>Category ID</TableCell>
                                         <TableCell>Short Description</TableCell>
                                         <TableCell>Description</TableCell>
                                         <TableCell>Image</TableCell>
@@ -108,14 +109,15 @@ const Content = () => {
                                         <TableRow key={row.id}>
                                             <TableCell>{row.id}</TableCell>
                                             <TableCell>{row.title}</TableCell>
+                                            <TableCell>{row.category_id}</TableCell>
                                             <TableCell>
-                                                <div dangerouslySetInnerHTML={{ __html: row.short_description }} />
+                                                <div dangerouslySetInnerHTML={{ __html: row.short_description.substr(0, 100) }} />
                                             </TableCell>
                                             <TableCell>
-                                                <div dangerouslySetInnerHTML={{ __html: row.description }} />
+                                                <div dangerouslySetInnerHTML={{ __html: row.description.substr(0, 100) }} />
                                             </TableCell>
                                             <TableCell>
-                                                <img style={{ maxWidth: '450px', height: 'auto' }} src={row.image_base64} alt={row.title} />
+                                                <img style={{ maxHeight: '128px', width: 'auto' }} src={row.image_base64} alt={row.title} />
                                             </TableCell>
                                             <TableCell>
                                                 <Link href={`/astro/product/update/${row.id}`} passHref>

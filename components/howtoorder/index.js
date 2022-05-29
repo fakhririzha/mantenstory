@@ -95,7 +95,7 @@ const HowToOrder = () => {
                         <Grid item xs={2}>
                             <Box sx={styles.circleStepperWrapper}>
                                 <Box sx={styles.circleStepper} component="div">
-                                    <Box sx={styles.circleStepperChildren} component="div" />
+                                    <Typography sx={styles.circleStepperChildrenText}>01</Typography>
                                 </Box>
                             </Box>
                             <Box sx={styles.lineStepper} />
@@ -114,6 +114,7 @@ const HowToOrder = () => {
                                     <Typography sx={styles.circleStepperChildrenText}>02</Typography>
                                 </Box>
                             </Box>
+                            <Box sx={styles.lineStepper} />
                         </Grid>
                         <Grid item xs={5} sx={styles.htoItemLeft}>
                             <Fade right>
@@ -138,6 +139,7 @@ const HowToOrder = () => {
                                     <Typography sx={styles.circleStepperChildrenText}>03</Typography>
                                 </Box>
                             </Box>
+                            <Box sx={styles.lineStepper} />
                         </Grid>
                         <Grid item xs={5}>
                             {' '}
@@ -153,6 +155,7 @@ const HowToOrder = () => {
                                     <Typography sx={styles.circleStepperChildrenText}>04</Typography>
                                 </Box>
                             </Box>
+                            <Box sx={styles.lineStepper} />
                         </Grid>
                         <Grid item xs={5} sx={styles.htoItemLeft}>
                             <Fade right>
@@ -178,6 +181,7 @@ const HowToOrder = () => {
                                     <Typography sx={styles.circleStepperChildrenText}>05</Typography>
                                 </Box>
                             </Box>
+                            <Box sx={styles.lineStepper} />
                         </Grid>
                         <Grid item xs={5}>
                             {' '}
@@ -193,6 +197,7 @@ const HowToOrder = () => {
                                     <Typography sx={styles.circleStepperChildrenText}>06</Typography>
                                 </Box>
                             </Box>
+                            <Box sx={styles.lineStepper} />
                         </Grid>
                         <Grid item xs={5} sx={styles.htoItemLeft}>
                             <Fade right>
@@ -219,6 +224,7 @@ const HowToOrder = () => {
                                     <Typography sx={styles.circleStepperChildrenText}>07</Typography>
                                 </Box>
                             </Box>
+                            <Box sx={styles.lineStepper} />
                         </Grid>
                         <Grid item xs={5}>
                             {' '}
@@ -234,6 +240,7 @@ const HowToOrder = () => {
                                     <Typography sx={styles.circleStepperChildrenText}>08</Typography>
                                 </Box>
                             </Box>
+                            <Box sx={styles.lineStepper} />
                         </Grid>
                         <Grid item xs={5} sx={styles.htoItemLeft}>
                             <Fade right>

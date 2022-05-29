@@ -2,18 +2,31 @@
 import * as React from 'react';
 import Layout from '@components/Layout';
 import SingleProduct from '@components/pages/product/slug';
-import { baseUrl } from '@config';
 import stripHtmlTags from '@components/helpers/stripHtmlTags';
+import { useRouter } from 'next/router';
+import { baseUrl } from '@config';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 
-const Slug = (props) => {
-    const { title: dataTitle } = props;
+const Slug = () => {
+    const router = useRouter();
+    const [productData, setProductData] = React.useState(null);
+
+    React.useEffect(() => {
+        if (router.query.slug !== undefined) {
+            fetch(`${baseUrl}/api/astro/product/getSingleProductByUrlKey/${stripHtmlTags(router.query.slug)}`)
+                .then((response) => response.json())
+                .then((product) => {
+                    setProductData(product);
+                })
+                .catch((err) => console.error('Error: ', err));
+        }
+    }, [router]);
 
     return (
         <Layout
             pageProps={{
-                title: dataTitle,
+                title: productData && productData.data ? productData.data[0].title : 'Product',
                 description: 'Mantenstory products are designed to help you plan your wedding with ease.',
             }}
         >
@@ -22,28 +35,6 @@ const Slug = (props) => {
             <Footer />
         </Layout>
     );
-};
-
-export const getStaticPaths = async () => {
-    const res = await fetch(`${baseUrl}/api/astro/product/`);
-    const posts = await res.json();
-
-    const paths = posts.data.map((post) => ({
-        params: { slug: `${post.url_key}.html` },
-    }));
-
-    return { paths, fallback: false };
-};
-
-export const getStaticProps = async ({ params }) => {
-    const res = await fetch(`${baseUrl}/api/astro/product/getSingleProductByUrlKey/${stripHtmlTags(params.slug)}`);
-    const product = await res.json();
-
-    return {
-        props: {
-            title: product.data[0].title,
-        },
-    };
 };
 
 export default Slug;

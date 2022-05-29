@@ -19,11 +19,7 @@ import { alpha, styled } from '@mui/material/styles';
 import makeStyles from './styles';
 import logo from '../../public/static/assets/img/logo.png';
 
-const Button = styled((props) => (
-    <MuiButton
-        {...props}
-    />
-))(({ theme }) => ({
+const Button = styled((props) => <MuiButton {...props} />)(({ theme }) => ({
     ':hover': {
         backgroundColor: '#FFF',
         borderBottom: `2px solid ${alpha(theme.palette.secondary.main, 0.8)}`,
@@ -97,7 +93,7 @@ const Navbar = () => {
                                 </Link>
                             </MenuItem>
                             <MenuItem>
-                                <Link href="/product" passHref>
+                                <Link href="/product-category" passHref>
                                     <Typography textAlign="center">Product</Typography>
                                 </Link>
                             </MenuItem>
@@ -129,8 +125,11 @@ const Navbar = () => {
                                 About Us
                             </Button>
                         </Link>
-                        <Link href="/product" passHref>
-                            <Button onClick={handleCloseNavMenu} sx={router.pathname === '/product' ? styles.menuNavBtnActive : styles.menuNavBtn}>
+                        <Link href="/product-category" passHref>
+                            <Button
+                                onClick={handleCloseNavMenu}
+                                sx={router.pathname === '/product-category' ? styles.menuNavBtnActive : styles.menuNavBtn}
+                            >
                                 Product
                             </Button>
                         </Link>

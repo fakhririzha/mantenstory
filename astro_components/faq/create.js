@@ -39,8 +39,7 @@ const Create = () => {
                 body: JSON.stringify(values),
             })
                 .then((data) => data.json())
-                .then((results) => {
-                    console.log(results);
+                .then(() => {
                     setSuccess(true);
                     setLoading(false);
                     resetForm();
