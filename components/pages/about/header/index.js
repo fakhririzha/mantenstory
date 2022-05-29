@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import { useRouter } from 'next/router';
 import { baseUrl } from '@config';
 
 import makeStyles from './styles';
@@ -16,7 +15,6 @@ const Divider = () => {
 };
 
 const Header = () => {
-    const router = useRouter();
     const [aboutData, setAboutData] = React.useState(null);
 
     React.useEffect(() => {
