@@ -1,7 +1,9 @@
 import React, { useRef, useEffect } from 'react';
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import Snackbar from '@mui/material/Snackbar';
 import { useFormik } from 'formik';
 import { Editor } from '@tinymce/tinymce-react';
 import { useRouter } from 'next/router';
@@ -10,69 +12,82 @@ import * as Yup from 'yup';
 
 import DropFile from '@astro_plugins/DropFile';
 import { Typography } from 'node_modules/@mui/material/index';
-import TextField from '../../commons/Forms/TextField';
-import SelectField from '@commons/Forms/SelectField';
+import TextField from '@commons/Forms/TextField';
 
-const Update = (props) => {
-    const { routes } = props;
-
-    const [categoryData, setCategoryData] = React.useState(null);
-
+const Create = () => {
     const [loading, setLoading] = React.useState(false);
     const [success, setSuccess] = React.useState(false);
 
+    const [open, setOpen] = React.useState(false);
+    const [openFailed, setOpenFailed] = React.useState(false);
+    const position = {
+        vertical: 'bottom',
+        horizontal: 'center',
+    };
+
+    const { vertical, horizontal } = position;
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+        setOpenFailed(false);
+    };
+
     const router = useRouter();
 
-    const ProductSchema = {
-        title: Yup.string().required('Title is required.'),
-        category_id: Yup.string().required('Category ID is required.'),
+    const CategorySchema = {
+        name: Yup.string().required('Name is required.'),
         short_description: Yup.string().required('Short Description is required'),
-        description: Yup.string().required('Description is required'),
+        detail_description: Yup.string().required('Detail Description is required'),
         filename: Yup.string().required('Image cannot be empty'),
         image_base64: Yup.string().required('Image cannot be empty'),
     };
 
     const initialValue = {
-        id: router.query.id,
-        title: '',
-        category_id: '',
+        name: '',
         short_description: '',
-        description: '',
+        detail_description: '',
         filename: '',
         image_base64: '',
     };
 
-    React.useEffect(() => {
-        fetch('/api/astro/category')
-            .then((data) => data.json())
-            .then((results) => {
-                setCategoryData(results);
-            })
-            .catch((err) => console.error('Error: ', err));
-    }, []);
-
     const formik = useFormik({
         initialValues: initialValue,
-        validationSchema: Yup.object().shape(ProductSchema),
+        validationSchema: Yup.object().shape(CategorySchema),
         onSubmit: async (values, { resetForm }) => {
+            const formData = { ...values };
+            const data = {
+                name: formData.name,
+                short_description: formData.short_description,
+                detail_description: formData.detail_description,
+                image_base64: formData.image_base64,
+            };
             setLoading(true);
-            await fetch('/api/astro/product/update', {
-                method: 'POST',
+            await fetch('/api/astro/category/create', {
+                method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(values),
+                body: JSON.stringify(data),
             })
-                .then((data) => data.json())
+                .then((response) => response.json())
                 .then(() => {
                     setSuccess(true);
+                    setOpen(true);
                     setLoading(false);
                     resetForm();
-                    router.push('/astro/product');
+                    setTimeout(() => {
+                        router.push('/astro/category');
+                    }, 2000);
                 })
                 .catch(() => {
+                    setOpenFailed(true);
                     setSuccess(false);
                     setLoading(false);
+                    resetForm();
                 });
         },
     });
@@ -84,42 +99,11 @@ const Update = (props) => {
         formik.setFieldValue('image_base64', baseCode);
     };
 
-    const [descriptionInitialValue, setDescriptionInitialValue] = React.useState('');
-    const [descriptionValue, setDescriptionValue] = React.useState('');
-    const handleDescriptionChange = (value) => {
-        setDescriptionValue(value);
-    };
-
-    const [shortDescriptionInitialValue, setShortDescriptionInitialValue] = React.useState('');
+    const [shortDescriptionInitialValue] = React.useState('');
     const [shortDescriptionValue, setShortDescriptionValue] = React.useState('');
     const handleShortDescriptionChange = (value) => {
         setShortDescriptionValue(value);
     };
-
-    React.useEffect(() => {
-        if (router.query.id !== undefined) {
-            fetch(`/api/astro/product/getSingleProduct/${router.query.id}`)
-                .then((data) => data.json())
-                .then((results) => {
-                    formik.setFieldValue('title', results.data[0].title);
-                    formik.setFieldValue('category_id', results.data[0].category_id);
-                    formik.setFieldValue('short_description', results.data[0].short_description);
-                    formik.setFieldValue('description', results.data[0].description);
-                    formik.setFieldValue('image_base64', results.data[0].image_base64);
-                    setDescriptionInitialValue(results.data[0].description);
-                    setShortDescriptionInitialValue(results.data[0].short_description);
-                })
-                .catch((err) => console.error('Error: ', err));
-        }
-    }, [router]);
-
-    useEffect(() => {
-        setDescriptionValue(descriptionInitialValue ?? '');
-    }, [descriptionInitialValue]);
-
-    useEffect(() => {
-        formik.setFieldValue('description', descriptionValue);
-    }, [descriptionValue]);
 
     useEffect(() => {
         setShortDescriptionValue(shortDescriptionInitialValue ?? '');
@@ -128,6 +112,20 @@ const Update = (props) => {
     useEffect(() => {
         formik.setFieldValue('short_description', shortDescriptionValue);
     }, [shortDescriptionValue]);
+
+    const [detailDescriptionInitialValue] = React.useState('');
+    const [detailDescriptionValue, setDetailDescriptionValue] = React.useState('');
+    const handleDetailDescriptionChange = (value) => {
+        setDetailDescriptionValue(value);
+    };
+
+    useEffect(() => {
+        setDetailDescriptionValue(detailDescriptionInitialValue ?? '');
+    }, [detailDescriptionInitialValue]);
+
+    useEffect(() => {
+        formik.setFieldValue('detail_description', detailDescriptionValue);
+    }, [detailDescriptionValue]);
 
     const editorRef = useRef(null);
 
@@ -144,32 +142,18 @@ const Update = (props) => {
                     <form onSubmit={formik.handleSubmit} autoComplete="new-password">
                         <TextField
                             autoComplete="new-password"
-                            label="Title"
-                            name="title"
-                            value={formik.values.title || ''}
+                            label="Name"
+                            name="name"
+                            value={formik.values.name || ''}
                             onChange={(e) => {
-                                formik.setFieldValue('title', e.target.value);
+                                formik.setFieldValue('name', e.target.value);
                             }}
-                            error={!!(formik.touched.title && formik.errors.title)}
-                            errorMessage={(formik.touched.title && formik.errors.title) || null}
+                            error={!!(formik.touched.name && formik.errors.name)}
+                            errorMessage={(formik.touched.name && formik.errors.name) || null}
                         />
-                        {categoryData && (
-                            <SelectField
-                                autoComplete="new-password"
-                                label="Product Category"
-                                name="category_id"
-                                value={formik.values.category_id || ''}
-                                onChange={(e) => {
-                                    formik.setFieldValue('category_id', e.target.value);
-                                }}
-                                options={categoryData}
-                                error={!!(formik.touched.category_id && formik.errors.category_id)}
-                                errorMessage={(formik.touched.category_id && formik.errors.category_id) || null}
-                            />
-                        )}
                         <Typography>Short Description</Typography>
                         <Editor
-                            tinymceScriptSrc={`${baseUrl}/tinymce//tinymce.min.js`}
+                            tinymceScriptSrc={`${baseUrl}/tinymce/tinymce.min.js`}
                             onInit={(evt, editor) => {
                                 editorRef.current = editor;
                             }}
@@ -186,15 +170,15 @@ const Update = (props) => {
                                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
                             }}
                         />
-                        <Typography>Description</Typography>
+                        <Typography>Detail Description</Typography>
                         <Editor
-                            tinymceScriptSrc={`${baseUrl}/tinymce//tinymce.min.js`}
+                            tinymceScriptSrc={`${baseUrl}/tinymce/tinymce.min.js`}
                             onInit={(evt, editor) => {
                                 editorRef.current = editor;
                             }}
-                            initialValue={descriptionInitialValue}
-                            value={descriptionValue}
-                            onEditorChange={handleDescriptionChange}
+                            initialValue={detailDescriptionInitialValue}
+                            value={detailDescriptionValue}
+                            onEditorChange={handleDetailDescriptionChange}
                             init={{
                                 height: 500,
                                 menubar: false,
@@ -207,8 +191,7 @@ const Update = (props) => {
                         />
                         <DropFile
                             title="Product Image (MAX 500kb)"
-                            label="Product Image (MAX 500kb)"
-                            acceptedFile=".jpg,.jpeg,.png,.pdf,.gif"
+                            acceptedFile=".jpg,.jpeg,.png"
                             multiple={false}
                             error={(formik.errors.filename && formik.touched.filename) || (formik.errors.image_base64 && formik.touched.image_base64)}
                             getBase64={handleDropFile}
@@ -217,10 +200,20 @@ const Update = (props) => {
                             {success ? 'Submitted!' : 'Submit'}
                         </Button>
                     </form>
+                    <Snackbar anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={3500} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                            Success adding category!
+                        </Alert>
+                    </Snackbar>
+                    <Snackbar anchorOrigin={{ vertical, horizontal }} open={openFailed} autoHideDuration={3500} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                            Failed to add category! Check if there is an empty field.
+                        </Alert>
+                    </Snackbar>
                 </Paper>
             </Grid>
         </Grid>
     );
 };
 
-export default Update;
+export default Create;

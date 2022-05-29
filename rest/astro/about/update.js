@@ -2,7 +2,7 @@
 const mysql = require('mysql');
 const { db: Database } = require('../../../app.config');
 
-module.exports = async function handler(req, res) {
+const handler = async (req, res) => {
     const db = mysql.createConnection({
         host: Database.host,
         user: Database.user,
@@ -13,15 +13,20 @@ module.exports = async function handler(req, res) {
     db.connect();
 
     db.query(
-        'UPDATE products SET title = ?, category_id = ?, short_description = ?, description = ?, image_base64 = ? WHERE id = ?',
-        [req.body.title, req.body.category_id, req.body.short_description, req.body.description, req.body.image_base64, req.body.id],
+        'UPDATE about_us SET description = ?, image_base64 = ? WHERE id = ?',
+        [req.body.description, req.body.image_base64, 1],
         (error, results) => {
             if (error) {
                 res.status(500).end();
+            } else if (results.affectedRows > 0) {
+                res.status(200).json({ data: results });
+            } else {
+                res.status(500).end();
             }
-            res.status(200).json({ data: results });
         }
     );
 
     db.end();
 };
+
+module.exports = handler;

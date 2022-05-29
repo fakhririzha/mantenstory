@@ -1,21 +1,14 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Snackbar from '@mui/material/Snackbar';
 import { useFormik } from 'formik';
-import { Editor } from '@tinymce/tinymce-react';
 import { useRouter } from 'next/router';
-import { baseUrl } from '@config';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
 import * as Yup from 'yup';
 
 import DropFile from '@astro_plugins/DropFile';
-import { Typography } from 'node_modules/@mui/material/index';
-import TextField from '@commons/Forms/TextField';
 
 const Create = () => {
     const [loading, setLoading] = React.useState(false);
@@ -41,38 +34,24 @@ const Create = () => {
 
     const router = useRouter();
 
-    const BlogSchema = {
-        title: Yup.string().required('Title is required.'),
-        description: Yup.string().required('Description is required'),
-        filename: Yup.string().required('Image cannot be empty'),
+    const HeaderSchema = {
         image_base64: Yup.string().required('Image cannot be empty'),
     };
 
     const initialValue = {
-        id: router.query.id,
-        title: '',
-        description: '',
-        filename: '',
         image_base64: '',
     };
 
     const formik = useFormik({
         initialValues: initialValue,
-        validationSchema: Yup.object().shape(BlogSchema),
+        validationSchema: Yup.object().shape(HeaderSchema),
         onSubmit: async (values, { resetForm }) => {
             const formData = { ...values };
-            dayjs.extend(utc);
-            dayjs.extend(timezone);
-            dayjs.tz.setDefault('Asia/Jakarta');
             const data = {
-                id: formData.id,
-                title: formData.title,
-                description: formData.description,
                 image_base64: formData.image_base64,
-                timestamp: dayjs(new Date().getTime()).format('DD-MM-YYYY HH:mm:ss'),
             };
             setLoading(true);
-            await fetch('/api/astro/blog/update', {
+            await fetch('/api/astro/header/update', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,8 +70,7 @@ const Create = () => {
                         router.push('/astro/blog');
                     }, 1500);
                 })
-                .catch((err) => {
-                    console.log(err);
+                .catch(() => {
                     setTimeout(() => {
                         setOpenFailed(true);
                     }, 1500);
@@ -109,35 +87,16 @@ const Create = () => {
         formik.setFieldValue('image_base64', baseCode);
     };
 
-    const [descriptionInitialValue, setDescriptionInitialValue] = React.useState('');
-    const [descriptionValue, setDescriptionValue] = React.useState('');
-    const handleDescriptionChange = (value) => {
-        setDescriptionValue(value);
-    };
-
     React.useEffect(() => {
         if (router.query.id !== undefined) {
-            fetch(`/api/astro/blog/getSingleBlog/${router.query.id}`)
+            fetch(`/api/astro/about/getSingleHeader/${router.query.id}`)
                 .then((data) => data.json())
                 .then((results) => {
-                    formik.setFieldValue('title', results.data[0].title);
-                    formik.setFieldValue('description', results.data[0].description);
                     formik.setFieldValue('image_base64', results.data[0].image_base64);
-                    setDescriptionInitialValue(results.data[0].description);
                 })
                 .catch((err) => console.error('Error: ', err));
         }
-    }, [router]);
-
-    useEffect(() => {
-        setDescriptionValue(descriptionInitialValue ?? '');
-    }, [descriptionInitialValue]);
-
-    useEffect(() => {
-        formik.setFieldValue('description', descriptionValue);
-    }, [descriptionValue]);
-
-    const editorRef = useRef(null);
+    }, []);
 
     return (
         <Grid container spacing={3}>
@@ -150,36 +109,6 @@ const Create = () => {
                     }}
                 >
                     <form onSubmit={formik.handleSubmit} autoComplete="new-password">
-                        <TextField
-                            autoComplete="new-password"
-                            label="Title"
-                            name="title"
-                            value={formik.values.title || ''}
-                            onChange={(e) => {
-                                formik.setFieldValue('title', e.target.value);
-                            }}
-                            error={!!(formik.touched.title && formik.errors.title)}
-                            errorMessage={(formik.touched.title && formik.errors.title) || null}
-                        />
-                        <Typography>Description</Typography>
-                        <Editor
-                            tinymceScriptSrc={`${baseUrl}/tinymce/tinymce.min.js`}
-                            onInit={(evt, editor) => {
-                                editorRef.current = editor;
-                            }}
-                            initialValue={descriptionInitialValue}
-                            value={descriptionValue}
-                            onEditorChange={handleDescriptionChange}
-                            init={{
-                                height: 500,
-                                menubar: false,
-                                plugins: ['lists'],
-                                // eslint-disable-next-line max-len
-                                toolbar:
-                                    'undo redo | formatselect | bold italic | alignleft aligncenter | alignright alignjustify | bullist numlist ',
-                                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-                            }}
-                        />
                         <DropFile
                             title="Product Image (MAX 500kb)"
                             acceptedFile=".jpg,.jpeg,.png"
@@ -193,12 +122,12 @@ const Create = () => {
                     </form>
                     <Snackbar anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={3500} onClose={handleClose}>
                         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                            Success adding blogpost!
+                            Success saving data!
                         </Alert>
                     </Snackbar>
                     <Snackbar anchorOrigin={{ vertical, horizontal }} open={openFailed} autoHideDuration={3500} onClose={handleClose}>
                         <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                            Failed to add blog post! Check if there is an empty field.
+                            Failed to update header image! Check if there is an empty field.
                         </Alert>
                     </Snackbar>
                 </Paper>

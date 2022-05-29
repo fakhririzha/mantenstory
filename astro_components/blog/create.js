@@ -79,23 +79,19 @@ const Create = () => {
             })
                 .then((response) => response.json())
                 .then(() => {
-                    setTimeout(() => {
-                        setSuccess(true);
-                        setOpen(true);
-                    }, 1500);
+                    setSuccess(true);
+                    setOpen(true);
                     setLoading(false);
                     resetForm();
                     setTimeout(() => {
                         router.push('/astro/blog');
-                    }, 1500);
+                    }, 2000);
                 })
-                .catch((err) => {
-                    console.log(err);
-                    setTimeout(() => {
-                        setOpenFailed(true);
-                    }, 1500);
+                .catch(() => {
+                    setOpenFailed(true);
                     setSuccess(false);
                     setLoading(false);
+                    resetForm();
                 });
         },
     });

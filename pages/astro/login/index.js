@@ -11,7 +11,6 @@ const Dashboard = () => {
         if (isLogin) {
             router.push('/astro');
         }
-        console.log(isLogin);
     }, []);
 
     return <Content router={router} />;

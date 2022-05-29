@@ -11,15 +11,19 @@ import * as Yup from 'yup';
 import DropFile from '@astro_plugins/DropFile';
 import { Typography } from 'node_modules/@mui/material/index';
 import TextField from '@commons/Forms/TextField';
+import SelectField from '@commons/Forms/SelectField';
 
 const Create = () => {
+    const [categoryData, setCategoryData] = React.useState(null);
+
     const [loading, setLoading] = React.useState(false);
     const [success, setSuccess] = React.useState(false);
 
     const router = useRouter();
 
-    const FaqSchema = {
+    const ProductSchema = {
         title: Yup.string().required('Title is required.'),
+        category_id: Yup.string().required('Category ID is required.'),
         short_description: Yup.string().required('Short Description is required'),
         description: Yup.string().required('Description is required'),
         filename: Yup.string().required('Image cannot be empty'),
@@ -28,15 +32,25 @@ const Create = () => {
 
     const initialValue = {
         title: '',
+        category_id: '',
         short_description: '',
         description: '',
         filename: '',
         image_base64: '',
     };
 
+    React.useEffect(() => {
+        fetch('/api/astro/category')
+            .then((data) => data.json())
+            .then((results) => {
+                setCategoryData(results);
+            })
+            .catch((err) => console.error('Error: ', err));
+    }, []);
+
     const formik = useFormik({
         initialValues: initialValue,
-        validationSchema: Yup.object().shape(FaqSchema),
+        validationSchema: Yup.object().shape(ProductSchema),
         onSubmit: async (values, { resetForm }) => {
             setLoading(true);
             await fetch('/api/astro/product/create', {
@@ -120,6 +134,20 @@ const Create = () => {
                             error={!!(formik.touched.title && formik.errors.title)}
                             errorMessage={(formik.touched.title && formik.errors.title) || null}
                         />
+                        {categoryData && (
+                            <SelectField
+                                autoComplete="new-password"
+                                label="Product Category"
+                                name="category_id"
+                                value={formik.values.category_id || ''}
+                                onChange={(e) => {
+                                    formik.setFieldValue('category_id', e.target.value);
+                                }}
+                                options={categoryData}
+                                error={!!(formik.touched.category_id && formik.errors.category_id)}
+                                errorMessage={(formik.touched.category_id && formik.errors.category_id) || null}
+                            />
+                        )}
                         <Typography>Short Description</Typography>
                         <Editor
                             tinymceScriptSrc={`${baseUrl}/tinymce/tinymce.min.js`}

@@ -15,7 +15,6 @@ import * as Yup from 'yup';
 
 import DropFile from '@astro_plugins/DropFile';
 import { Typography } from 'node_modules/@mui/material/index';
-import TextField from '@commons/Forms/TextField';
 
 const Create = () => {
     const [loading, setLoading] = React.useState(false);
@@ -41,16 +40,13 @@ const Create = () => {
 
     const router = useRouter();
 
-    const BlogSchema = {
-        title: Yup.string().required('Title is required.'),
+    const AboutSchema = {
         description: Yup.string().required('Description is required'),
         filename: Yup.string().required('Image cannot be empty'),
         image_base64: Yup.string().required('Image cannot be empty'),
     };
 
     const initialValue = {
-        id: router.query.id,
-        title: '',
         description: '',
         filename: '',
         image_base64: '',
@@ -58,21 +54,18 @@ const Create = () => {
 
     const formik = useFormik({
         initialValues: initialValue,
-        validationSchema: Yup.object().shape(BlogSchema),
+        validationSchema: Yup.object().shape(AboutSchema),
         onSubmit: async (values, { resetForm }) => {
             const formData = { ...values };
             dayjs.extend(utc);
             dayjs.extend(timezone);
             dayjs.tz.setDefault('Asia/Jakarta');
             const data = {
-                id: formData.id,
-                title: formData.title,
                 description: formData.description,
                 image_base64: formData.image_base64,
-                timestamp: dayjs(new Date().getTime()).format('DD-MM-YYYY HH:mm:ss'),
             };
             setLoading(true);
-            await fetch('/api/astro/blog/update', {
+            await fetch('/api/astro/about/update', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -116,18 +109,19 @@ const Create = () => {
     };
 
     React.useEffect(() => {
-        if (router.query.id !== undefined) {
-            fetch(`/api/astro/blog/getSingleBlog/${router.query.id}`)
-                .then((data) => data.json())
-                .then((results) => {
-                    formik.setFieldValue('title', results.data[0].title);
-                    formik.setFieldValue('description', results.data[0].description);
-                    formik.setFieldValue('image_base64', results.data[0].image_base64);
-                    setDescriptionInitialValue(results.data[0].description);
-                })
-                .catch((err) => console.error('Error: ', err));
-        }
-    }, [router]);
+        // if (router.query.id !== undefined) {
+        // fetch(`/api/astro/about/getSingleAbout/${router.query.id}`)
+        fetch('/api/astro/about/getSingleAbout')
+            .then((data) => data.json())
+            .then((results) => {
+                formik.setFieldValue('description', results.data[0].description);
+                formik.setFieldValue('image_base64', results.data[0].image_base64);
+                setDescriptionInitialValue(results.data[0].description);
+                console.log(results);
+            })
+            .catch((err) => console.error('Error: ', err));
+        // }
+    }, []);
 
     useEffect(() => {
         setDescriptionValue(descriptionInitialValue ?? '');
@@ -150,17 +144,6 @@ const Create = () => {
                     }}
                 >
                     <form onSubmit={formik.handleSubmit} autoComplete="new-password">
-                        <TextField
-                            autoComplete="new-password"
-                            label="Title"
-                            name="title"
-                            value={formik.values.title || ''}
-                            onChange={(e) => {
-                                formik.setFieldValue('title', e.target.value);
-                            }}
-                            error={!!(formik.touched.title && formik.errors.title)}
-                            errorMessage={(formik.touched.title && formik.errors.title) || null}
-                        />
                         <Typography>Description</Typography>
                         <Editor
                             tinymceScriptSrc={`${baseUrl}/tinymce/tinymce.min.js`}
@@ -193,12 +176,12 @@ const Create = () => {
                     </form>
                     <Snackbar anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={3500} onClose={handleClose}>
                         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                            Success adding blogpost!
+                            Success saving data!
                         </Alert>
                     </Snackbar>
                     <Snackbar anchorOrigin={{ vertical, horizontal }} open={openFailed} autoHideDuration={3500} onClose={handleClose}>
                         <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                            Failed to add blog post! Check if there is an empty field.
+                            Failed to update about us! Check if there is an empty field.
                         </Alert>
                     </Snackbar>
                 </Paper>

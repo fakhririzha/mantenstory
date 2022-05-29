@@ -11,22 +11,24 @@ const handler = async (req, res) => {
 
     db.connect();
 
-    const url_key = req.body.title.split(' ');
+    const url_key = req.body.name.replaceAll(' ', '-');
 
     const data = {
-        title: req.body.title,
-        category_id: req.body.category_id,
-        url_key: url_key[0].toString().toLowerCase(),
+        name: req.body.name,
+        url_key: url_key.toString().toLowerCase(),
         short_description: req.body.short_description,
-        description: req.body.description,
+        detail_description: req.body.detail_description,
         image_base64: req.body.image_base64,
     };
 
-    db.query('INSERT INTO products SET ?', data, (error, results) => {
+    db.query('INSERT INTO product_category SET ?', data, (error, results) => {
         if (error) {
             res.status(500).end();
+        } else if (results.affectedRows > 0) {
+            res.status(200).json({ data: results });
+        } else {
+            res.status(500).end();
         }
-        res.status(200).json({ data: results });
     });
 
     db.end();

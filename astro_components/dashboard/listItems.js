@@ -5,9 +5,12 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import CategoryIcon from '@mui/icons-material/Category';
 import HomeIcon from '@mui/icons-material/Home';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
+import InfoIcon from '@mui/icons-material/Info';
+import PhotoIcon from '@mui/icons-material/Photo';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import Link from 'next/link';
 
 export const homeListItems = (
@@ -23,10 +26,18 @@ export const homeListItems = (
 
 export const mainListItems = (
     <>
-        <Link href="/astro/product" passHref>
+        <Link href="/astro/category" passHref>
             <ListItemButton>
                 <ListItemIcon>
                     <CategoryIcon />
+                </ListItemIcon>
+                <ListItemText primary="Categories" />
+            </ListItemButton>
+        </Link>
+        <Link href="/astro/product" passHref>
+            <ListItemButton>
+                <ListItemIcon>
+                    <InventoryIcon />
                 </ListItemIcon>
                 <ListItemText primary="Product" />
             </ListItemButton>
@@ -53,25 +64,31 @@ export const mainListItems = (
 export const secondaryListItems = (
     <>
         <ListSubheader component="div" inset>
-            Saved reports
+            Homepage
         </ListSubheader>
-        <ListItemButton>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Current month" />
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Last quarter" />
-        </ListItemButton>
-        <ListItemButton>
-            <ListItemIcon>
-                <AssignmentIcon />
-            </ListItemIcon>
-            <ListItemText primary="Year-end sale" />
-        </ListItemButton>
+        <Link href="/astro/header" passHref>
+            <ListItemButton>
+                <ListItemIcon>
+                    <PhotoIcon />
+                </ListItemIcon>
+                <ListItemText primary="Header Image" />
+            </ListItemButton>
+        </Link>
+        <Link href="/astro/about" passHref>
+            <ListItemButton>
+                <ListItemIcon>
+                    <InfoIcon />
+                </ListItemIcon>
+                <ListItemText primary="About Us" />
+            </ListItemButton>
+        </Link>
+        <Link href="/astro/reviews" passHref>
+            <ListItemButton>
+                <ListItemIcon>
+                    <RateReviewIcon />
+                </ListItemIcon>
+                <ListItemText primary="Reviews" />
+            </ListItemButton>
+        </Link>
     </>
 );

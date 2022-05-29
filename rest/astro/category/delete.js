@@ -11,18 +11,7 @@ const handler = async (req, res) => {
 
     db.connect();
 
-    const url_key = req.body.title.split(' ');
-
-    const data = {
-        title: req.body.title,
-        category_id: req.body.category_id,
-        url_key: url_key[0].toString().toLowerCase(),
-        short_description: req.body.short_description,
-        description: req.body.description,
-        image_base64: req.body.image_base64,
-    };
-
-    db.query('INSERT INTO products SET ?', data, (error, results) => {
+    db.query('DELETE FROM product_category WHERE id = ?', [req.body.id], (error, results) => {
         if (error) {
             res.status(500).end();
         }
