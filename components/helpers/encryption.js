@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const {
     encryption: { key, algorithm },
-} = require('@config');
+} = require('../../app.config');
 
 const iv = key.substr(0, 16);
 

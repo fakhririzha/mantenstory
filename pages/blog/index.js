@@ -1,9 +1,9 @@
 /* eslint-disable import/extensions */
 import * as React from 'react';
-import Layout from '../../components/Layout';
-import Navbar from '../../components/navbar';
-import Main from '../../components/pages/blog';
-import Footer from '../../components/footer';
+import Layout from '@components/Layout';
+import Navbar from '@components/navbar';
+import Main from '@components/pages/blog';
+import Footer from '@components/footer';
 
 const Blog = () => (
     <Layout

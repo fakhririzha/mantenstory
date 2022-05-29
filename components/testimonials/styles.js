@@ -20,7 +20,8 @@ const styles = () => {
             color: theme.palette.primary.main,
         },
         contentWrapper: {
-            paddingTop: '7.5rem',
+            paddingTop: '5rem',
+            paddingBottom: '5rem',
         },
         testimonialItem: {
             textAlign: 'center',
