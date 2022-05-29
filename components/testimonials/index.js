@@ -17,9 +17,7 @@ import 'keen-slider/keen-slider.min.css';
 
 import makeStyles from './styles';
 
-const Testimonials = (props) => {
-    const { feed } = props;
-
+const Testimonials = () => {
     const [currentSlide, setCurrentSlide] = React.useState(0);
     const [reviewsData, setReviewsData] = React.useState({});
     const [loaded, setLoaded] = React.useState(false);
@@ -93,25 +91,14 @@ const Testimonials = (props) => {
     const [instagramData, setInstagramData] = React.useState();
 
     React.useEffect(() => {
-        if (feed && feed.data && feed.data.length > 0) {
-            const data = feed.data.map((item) => ({
-                id: item.id,
-                caption: item.caption,
-                media_url: item.media_url,
-                timestamp: item.timestamp,
-                media_type: item.media_type,
-                permalink: item.permalink,
-            }));
-
-            setInstagramData(data);
-        }
-    }, [feed]);
-
-    React.useEffect(() => {
-        if (instagramData && instagramData.length > 0) {
-            console.log(instagramData);
-        }
-    }, [instagramData]);
+        fetch(
+            'https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink,thumbnail_url&access_token=IGQVJVRzVfOW5NcDRERFhPS0VUeUQwaWkyamxzVl8zajBjd0xBVGhEaWdhTU5fMzZAGUjRlVGg2WGJweEQwcWVZATTJoT043OE1hemRyNzJBWFFicjBPRmljaElEY0hySTdyaFc4VnRoWmYzMGdiMXZAacAZDZD'
+        )
+            .then((response) => response.json())
+            .then((feed) => {
+                setInstagramData(feed.data);
+            });
+    }, []);
 
     React.useEffect(() => {
         fetch('/api/astro/reviews/accepted')

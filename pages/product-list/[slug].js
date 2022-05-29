@@ -17,7 +17,6 @@ const Slug = () => {
                 .then((response) => response.json())
                 .then((product) => {
                     setCategoryData(product);
-                    console.log(product);
                 })
                 .catch((err) => console.error('Error: ', err));
         }
