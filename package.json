@@ -5,7 +5,7 @@
     "author": "Fakhri Rizha Ananda",
     "license": "MIT",
     "scripts": {
-        "clean": "cross-env rimraf ./.next ./out",
+        "clean": "cross-env rimraf ./.next ./out ./mantenstory.zip",
         "local": "cross-env APP_ENV=local NODE_ENV=development node server.js",
         "build": "next build",
         "local:start": "cross-env APP_ENV=local NODE_ENV=production node server.js",
