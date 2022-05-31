@@ -8,7 +8,8 @@
         "clean": "cross-env rimraf ./.next ./out",
         "local": "cross-env APP_ENV=local NODE_ENV=development node server.js",
         "build": "next build",
-        "local:start": "cross-env APP_ENV=local NODE_ENV=production node server.js"
+        "local:start": "cross-env APP_ENV=local NODE_ENV=production node server.js",
+        "start": "NODE_ENV=production node server.js"
     },
     "dependencies": {
         "@emotion/cache": "^11.7.1",
