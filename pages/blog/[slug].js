@@ -35,19 +35,4 @@ const Slug = () => {
     );
 };
 
-export const getStaticProps = async () => ({
-    props: {}, // will be passed to the page component as props
-});
-
-export const getStaticPaths = async () => ({
-    paths: [
-        {
-            params: {
-                slug: 'test.html',
-            },
-        },
-    ],
-    fallback: 'blocking',
-});
-
 export default Slug;
