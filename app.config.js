@@ -1,11 +1,11 @@
 module.exports = {
     db: {
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'mantenstory',
+        host: '103.253.212.95',
+        user: 'manq8896_mantenstoryco',
+        password: 'bismillah_b3rk4hselalu',
+        database: 'manq8896_mantenstoryco',
     },
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'https://mantenstory.co',
     encryption: {
         key: 'TXAjwm8k53PJG9NacLbyZavvQB2qBh43',
         algorithm: 'aes-256-cbc',
