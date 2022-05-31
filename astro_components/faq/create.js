@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { baseUrl } from '@config';
 import * as Yup from 'yup';
 
-import TextField from '../../commons/Forms/TextField';
+import TextField from '@commons/Forms/TextField';
 
 const Create = () => {
     const [loading, setLoading] = React.useState(false);

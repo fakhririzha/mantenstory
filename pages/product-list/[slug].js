@@ -3,8 +3,8 @@ import * as React from 'react';
 import Layout from '@components/Layout';
 import Main from '@components/pages/product-list';
 import { useRouter } from 'next/router';
-import Navbar from '../../components/navbar';
-import Footer from '../../components/footer';
+import Navbar from '@components/navbar';
+import Footer from '@components/footer';
 
 const Slug = () => {
     const router = useRouter();

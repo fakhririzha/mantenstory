@@ -4,8 +4,8 @@ import Layout from '@components/Layout';
 import SingleProduct from '@components/pages/product/slug';
 import stripHtmlTags from '@components/helpers/stripHtmlTags';
 import { useRouter } from 'next/router';
-import Navbar from '../../components/navbar';
-import Footer from '../../components/footer';
+import Navbar from '@components/navbar';
+import Footer from '@components/footer';
 
 const Slug = () => {
     const router = useRouter();

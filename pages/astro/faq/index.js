@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import { getLoginInfo } from '@components/helpers/auth';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
-import DashboardLayout from '../../../astro_components/dashboard';
-import Content from '../../../astro_components/faq';
+import DashboardLayout from '@astro_components/dashboard';
+import Content from '@astro_components/faq';
 
 const Dashboard = () => {
     const router = useRouter();

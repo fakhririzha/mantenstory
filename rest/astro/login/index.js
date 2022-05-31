@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 const mysql = require('mysql');
-const { decrypt } = require('../../../components/helpers/encryption');
+const { decrypt } = require('../@components/helpers/encryption');
 const { db: Database } = require('../../../app.config');
 
 const handler = async (req, res) => {

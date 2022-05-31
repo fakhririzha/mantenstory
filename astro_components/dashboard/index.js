@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useRouter } from 'next/router';
 import { removeIsLoginFlagging } from '@helpers/auth';
-import Layout from '../../components/Layout';
+import Layout from '@components/Layout';
 import { homeListItems, mainListItems, secondaryListItems } from './listItems';
 
 const Copyright = (props) => (

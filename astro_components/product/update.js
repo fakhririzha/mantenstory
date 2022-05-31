@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 
 import DropFile from '@astro_plugins/DropFile';
 import { Typography } from 'node_modules/@mui/material/index';
-import TextField from '../../commons/Forms/TextField';
+import TextField from '@commons/Forms/TextField';
 import SelectField from '@commons/Forms/SelectField';
 
 const Update = (props) => {
